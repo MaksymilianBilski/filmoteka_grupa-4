@@ -1,10 +1,10 @@
 {
-  "name": "goit-js-hw-11",
+  "name": "filmoteka_grupa-4",
   "version": "2.0.0",
   "description": "Ten projekt został stworzony przy pomocy Parcel. W celu zapoznania się i\r skonfigurowania dodatkowych opcji [zobacz dokumentację](https://parceljs.org/)",
   "homepage": "https://github.com/MaksymilianBilski/filmoteka_grupa-4",
   "scripts": {
-    "start": "parcel src/*.html",
+    "dev": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /filmoteka_grupa-4/"
   },
   "repository": {
