@@ -1,0 +1,36 @@
+{
+  "name": "goit-js-hw-11",
+  "version": "2.0.0",
+  "description": "Ten projekt został stworzony przy pomocy Parcel. W celu zapoznania się i\r skonfigurowania dodatkowych opcji [zobacz dokumentację](https://parceljs.org/)",
+  "homepage": "ttps://goitacademy.github.io/goit-js-hw-11",
+  "scripts": {
+    "start": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaksymilianBilski/goit-js-hw-11.git"
+  },
+  "keywords": [],
+  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goitacademy/parcel-project-template/issues"
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.4.12",
+    "axios": "^1.1.3",
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.5",
+    "regenerator-runtime": "^0.13.10"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "buffer": "^6.0.3",
+    "parcel": "^2.6.0",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "posthtml-include": "^1.7.4",
+    "process": "^0.11.10"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
