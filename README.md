@@ -1,11 +1,11 @@
 # filmoteka_grupa-4
-TEAM:
+<h1>TEAM:</h1>
 
-<ul style="listy-style:none">
-<li><a href="https://github.com/MaksymilianBilski">Maksymilian Bilski</a>(leader)</li>
-<li><a href="https://github.com/Urszula-Molska">Urszula Molska</a>(scrum-master)</li>
-<li><a href="">Dariusz Kuśnieruk</a>(developer)</li>
-<li><a href="">Jakub Lisowski</a>(developer)</li>
-<li><a href="">Konrad Włodarczyk</a>(developer)</li>
-<li><a href="">Maciek Kosiński</a>(developer)</li>
+<ul>
+<li><a href="https://github.com/MaksymilianBilski">Maksymilian Bilski</a>(Team Leader)</li>
+<li><a href="https://github.com/Urszula-Molska">Urszula Molska</a>(Scrum Master)</li>
+<li><a href="">Dariusz Kuśnieruk</a>(Developer)</li>
+<li><a href="">Jakub Lisowski</a>(Developer)</li>
+<li><a href="">Konrad Włodarczyk</a>(Developer)</li>
+<li><a href="">Maciek Kosiński</a>(Developer)</li>
 </ul>
