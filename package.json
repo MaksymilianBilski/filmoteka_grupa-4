@@ -1,7 +1,7 @@
 {
   "name": "filmoteka_grupa-4",
   "version": "2.0.0",
-  "description": "Ten projekt został stworzony przy pomocy Parcel. W celu zapoznania się i\r skonfigurowania dodatkowych opcji [zobacz dokumentację](https://parceljs.org/)",
+  "description": "projekt grupowy realizowany w ramach kursu goit, z modułu javascript",
   "homepage": "https://maksymilianbilski.github.io/filmoteka_grupa-4/",
   "scripts": {
     "dev": "parcel src/*.html",
@@ -12,10 +12,10 @@
     "url": "git+https://github.com/MaksymilianBilski/filmoteka_grupa-4"
   },
   "keywords": [],
-  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "author": "Maksymilian Bilski <biger9@o2.pl>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/goitacademy/parcel-project-template/issues"
+    "url": "https://github.com/MaksymilianBilski/filmoteka_grupa-4/issues"
   },
   "dependencies": {
     "@swc/helpers": "^0.4.12",
