@@ -1,7 +1,7 @@
 // import { page, renderPost, totalPages } from '';
 // import { Notify } from 'notiflix';
-page = 90;
-totalPages = 100;
+let page = 90;
+let totalPages = 100;
 
 const pagination = document.querySelector('.pagination');
 const paginationBox = document.querySelector('.pagination-box');
