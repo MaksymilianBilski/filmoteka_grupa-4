@@ -9,7 +9,7 @@ const paginationBox = document.querySelector('header');
 
 for (let i = 0; i <= page; i++) {
   if (page > 3 && page < totalPages - 2) {
-    for (let i = page+2; i >= page-2; i++) {
+    for (let i = page + 2; i >= page - 2; i++) {
       paginationBox.insertAdjacentHTML('afterbegin', `<button>${i}</button>`);
       if (i === 0) return;
     }
