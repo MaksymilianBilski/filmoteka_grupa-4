@@ -1,18 +1,25 @@
 // import { page, renderPost, totalPages } from '';
 // import { Notify } from 'notiflix';
-page = 10;
+page = 90;
 totalPages = 100;
 
 // leftArrow.addEventListener('click', pageForward);
 // rightArrow.addEventListener('click', pageBackward);
-const paginationBox = document.querySelector('header');
+const paginationBox = document.querySelector('.pagination');
 
 for (let i = 0; i <= page; i++) {
-  if (page > 3 && page < totalPages - 2) {
-    for (let i = page + 2; i >= page - 2; i++) {
-      paginationBox.insertAdjacentHTML('afterbegin', `<button>${i}</button>`);
-      if (i === 0) return;
+  if (page > 5 && page < totalPages - 4) {
+    for (let i = page + 2; i >= page - 2; i--) {
+      paginationBox.insertAdjacentHTML(
+        'afterbegin',
+        `<button class="middlePagination">${i}</button>`
+      );
     }
+    return;
+  }
+  if (page >= totalPages - 4) {
+    const middlePagination = document.querySelector('.middlePagination');
+    middlePagination.insertAdjacentHTML('afterbegin', '...');
   }
 }
 
@@ -28,4 +35,4 @@ function pageBackward() {
   renderPost();
 }
 
-export { page };
+// export { page };
