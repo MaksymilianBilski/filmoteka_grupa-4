@@ -3,36 +3,84 @@
 page = 90;
 totalPages = 100;
 
-// leftArrow.addEventListener('click', pageForward);
-// rightArrow.addEventListener('click', pageBackward);
-const paginationBox = document.querySelector('.pagination');
+const pagination = document.querySelector('.pagination');
+const paginationBox = document.querySelector('.pagination-box');
+const arrowLeft = document.querySelector('.arrowLeft');
+const arrowRight = document.querySelector('.arrowRight');
+let paginationButtons;
+paginationBox.style.display = 'flex';
 
-for (let i = 0; i <= page; i++) {
-  if (page > 5 && page < totalPages - 4) {
-    for (let i = page + 2; i >= page - 2; i--) {
-      paginationBox.insertAdjacentHTML(
-        'afterbegin',
-        `<button class="middlePagination">${i}</button>`
-      );
+arrowLeft.addEventListener('click', () => {
+  pageBackward();
+});
+arrowRight.addEventListener('click', () => {
+  pageForward();
+});
+
+function middleState() {
+  // pagination.insertAdjacentHTML('beforebegin', `<button>${1}</button>`);
+  // pagination.insertAdjacentHTML('beforebegin', `<span>...</span>`);
+  // pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+  // pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
+  for (let i = 0; i <= page; i++) {
+    if (page > 5 && page < totalPages - 4) {
+      for (let i = page + 2; i >= page - 2; i--) {
+        pagination.insertAdjacentHTML(
+          'afterbegin',
+          `<button class="pagination-button">${i}</button>`
+        );
+      }
+      return;
     }
-    return;
-  }
-  if (page >= totalPages - 4) {
-    const middlePagination = document.querySelector('.middlePagination');
-    middlePagination.insertAdjacentHTML('afterbegin', '...');
+    // if (page >= totalPages - 4) {
+    //   const paginationBtn = document.querySelector('.pagination-button');
+    //   paginationBtn.insertAdjacentHTML('afterbegin', '...');
+    // }
   }
 }
+middleState();
 
 function pageForward() {
   page = totalPages;
-  rightArrow.classList.add('hidden');
-  renderPost();
+  pagination.innerHTML = '';
+  for (let i = totalPages; i >= totalPages - 4; i--) {
+    pagination.insertAdjacentHTML(
+      'afterbegin',
+      `<button class="pagination-button">${i}</button>`
+    );
+  }
+  arrowLeft.classList.remove('hidden');
+  arrowRight.classList.add('hidden');
+  paginationButtons = document.querySelectorAll('.pagination-button');
+  for (let i = 0; i <= paginationButtons.length - 1; i++) {
+    pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
+    pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
+    return;
+  }
+  // renderPost();
 }
 
 function pageBackward() {
   page = 1;
-  leftArrow.classList.add('hidden');
-  renderPost();
+  pagination.innerHTML = '';
+  for (let i = 5; i >= 1; i--) {
+    pagination.insertAdjacentHTML(
+      'afterbegin',
+      `<button class="pagination-button">${i}</button>`
+    );
+  }
+  arrowRight.classList.remove('hidden');
+  arrowLeft.classList.add('hidden');
+  paginationButtons = document.querySelectorAll('.pagination-button');
+  for (let i = 0; i <= paginationButtons.length - 1; i++) {
+    pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+    pagination.insertAdjacentHTML(
+      'beforeend',
+      `<button>${totalPages}</button>`
+    );
+    return;
+  }
+  // renderPost();
 }
 
 // export { page };
