@@ -1,15 +1,17 @@
 // import { page, renderPost, totalPages } from '';
 // import { Notify } from 'notiflix';
-let page = 90;
+let page = 50;
 let totalPages = 100;
-let actualPage;
+let actualPage = 1;
 
 const pagination = document.querySelector('.pagination');
 const paginationBox = document.querySelector('.pagination-box');
 const arrowLeft = document.querySelector('.arrowLeft');
 const arrowRight = document.querySelector('.arrowRight');
-let paginationButtons;
 paginationBox.style.display = 'flex';
+startState();
+
+const paginationButtons = document.querySelectorAll('.pagination-button');
 
 arrowLeft.addEventListener('click', () => {
   pageBackward();
@@ -19,6 +21,10 @@ arrowRight.addEventListener('click', () => {
 });
 
 function startState() {
+  //dots before last page + last page
+  pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+  pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
+  //creating 1-5 pages
   for (let i = 5; i >= 1; i--) {
     pagination.insertAdjacentHTML(
       'afterbegin',
@@ -27,48 +33,40 @@ function startState() {
   }
 }
 
-startState();
-
-//bez promise nie działa listener w funkcji changeBtn
 function middleState() {
+  //loop by the value of total amount of pages.
   for (let i = 0; i <= totalPages; i++) {
-    if (page > 5 && page < totalPages - 4) {
-      for (let i = page + 2; i >= page - 2; i--) {
+    // condition for pages between: page 5 and page last-4
+    if (actualPage > 5 && page < totalPages - 4) {
+      // loop that makes pages in middle state( firstPage... thisLoopPages ...lastPage)
+      for (let i = actualPage + 2; i >= actualPage - 2; i--) {
         pagination.insertAdjacentHTML(
           'afterbegin',
           `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
         );
       }
+      // set the actualPage to middle element of 5 buttons
       actualPage = pagination.children[2];
-      return pagination;
     }
   }
 }
 
-// function middleState() {
-//   // pagination.insertAdjacentHTML('beforebegin', `<button>${1}</button>`);
-//   // pagination.insertAdjacentHTML('beforebegin', `<span>...</span>`);
-//   // pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
-//   // pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
-
-//     // if (page >= totalPages - 4) {
-//     //   const paginationBtn = document.querySelector('.pagination-button');
-//     //   paginationBtn.insertAdjacentHTML('afterbegin', '...');
-//     // }
-//   }
-
 function pageForward() {
-  page = totalPages;
+  // set the page and actualPage for last page
+  actualPage = page = totalPages;
   pagination.innerHTML = '';
+  // creating the last 5 pages
   for (let i = totalPages; i >= totalPages - 4; i--) {
     pagination.insertAdjacentHTML(
       'afterbegin',
       `<button class="pagination-button">${i}</button>`
     );
   }
+  //hide and show arrow
   arrowLeft.classList.remove('hidden');
   arrowRight.classList.add('hidden');
-  paginationButtons = document.querySelectorAll('.pagination-button');
+  // paginationButtons = document.querySelectorAll('.pagination-button');
+  //insert first page and dots after it
   pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
   pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
 
@@ -76,38 +74,61 @@ function pageForward() {
 }
 
 function pageBackward() {
-  page = 1;
+  // setting page and actual page to 1
+  actualPage = page = 1;
   pagination.innerHTML = '';
+  // creating the first 5 elements
   for (let i = 5; i >= 1; i--) {
     pagination.insertAdjacentHTML(
       'afterbegin',
       `<button class="pagination-button">${i}</button>`
     );
   }
+  // hide and show arrow
   arrowRight.classList.remove('hidden');
   arrowLeft.classList.add('hidden');
-  paginationButtons = document.querySelectorAll('.pagination-button');
+  //insert dots at the end, and amount of total pages after it
   pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
-  pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
+  pagination.insertAdjacentHTML(
+    'beforeend',
+    `<button class="pagination-button">${totalPages}</button>`
+  );
   // renderPost();
 }
 
 function buttonClick(e) {
-  page = actualPage = e.currentTarget.textContent;
+  //setting page number to clicked button
+  console.log(e.target);
+  page = actualPage = e.target.textContent;
   pagination.innerHTML = '';
-  if (Number(actualPage) >= 5 && Number(actualPage) <= totalPages - 2) {
+  // dynamic creating of pages in middle state
+  if (Number(actualPage) >= 5 && Number(actualPage) <= totalPages - 4) {
+    // !!TO DO!! create dots and first element at the begining !!!!
     pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
     pagination.insertAdjacentHTML(
       'beforeend',
-      `<button>${totalPages}</button>`
+      `<button class="pagination-button">${totalPages}</button>`
     );
   }
+  // dynamic creating first 5 pages, and last 5 pages
   for (let i = Number(actualPage) + 2; i >= Number(actualPage) - 2; i--) {
+    // first 5 pages condition
     if (Number(actualPage) <= 3) {
-      return pageBackward();
+      pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+      pagination.insertAdjacentHTML(
+        'beforeend',
+        `<button class="pagination-button">${totalPages}</button>`
+      );
+      pageBackward();
+      return (page = actualPage = e.currentTarget.textContent);
     }
+    // last 5 pages condition
     if (Number(actualPage) >= totalPages - 2) {
-      return pageForward();
+      arrowLeft.classList.remove('hidden');
+      pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
+      pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
+      pageForward();
+      return (page = actualPage = e.currentTarget.textContent);
     }
     pagination.insertAdjacentHTML(
       'afterbegin',
@@ -117,15 +138,31 @@ function buttonClick(e) {
 }
 
 function changeBtn(e) {
+  // if didnt clicked properly
   if (e.target.nodeName !== 'BUTTON') {
     return;
-  } else if (pagination.children.length > 0) {
+  } //if there are some buttons do a loop on this buttons
+  else if (pagination.children.length > 0) {
     for (let i = 0; i <= pagination.children.length - 1; i++) {
+      // !!TO DO!!
       pagination.children[i].addEventListener('click', buttonClick);
     }
   } else return;
 }
 
 pagination.addEventListener('click', changeBtn);
+
+//testing functions
+function testBtn() {
+  paginationBox.insertAdjacentHTML(
+    'afterbegin',
+    `<button class="test">klik</button>`
+  );
+}
+testBtn();
+const tBtn = document.querySelector('.test');
+tBtn.addEventListener('click', () => {
+  console.log(paginationButtons);
+});
 
 // export { page };
