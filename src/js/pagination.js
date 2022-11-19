@@ -95,11 +95,18 @@ function pageBackward() {
 function buttonClick(e) {
   page = actualPage = e.currentTarget.textContent;
   pagination.innerHTML = '';
+  if (Number(actualPage) >= 5 && Number(actualPage) <= totalPages - 2) {
+    pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+    pagination.insertAdjacentHTML(
+      'beforeend',
+      `<button>${totalPages}</button>`
+    );
+  }
   for (let i = Number(actualPage) + 2; i >= Number(actualPage) - 2; i--) {
     if (Number(actualPage) <= 3) {
-      return startState();
+      return pageBackward();
     }
-    if (Number(actualPage) >= totalPages) {
+    if (Number(actualPage) >= totalPages - 2) {
       return pageForward();
     }
     pagination.insertAdjacentHTML(
