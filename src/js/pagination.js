@@ -2,13 +2,13 @@
 // import { Notify } from 'notiflix';
 let page = 90;
 let totalPages = 100;
+let actualPage;
 
 const pagination = document.querySelector('.pagination');
 const paginationBox = document.querySelector('.pagination-box');
 const arrowLeft = document.querySelector('.arrowLeft');
 const arrowRight = document.querySelector('.arrowRight');
 let paginationButtons;
-let actualPage;
 paginationBox.style.display = 'flex';
 
 arrowLeft.addEventListener('click', () => {
@@ -18,37 +18,44 @@ arrowRight.addEventListener('click', () => {
   pageForward();
 });
 
-function middleState() {
-  if (page > 5 && page <= totalPages - 5) {
-    pagination.insertAdjacentHTML('beforebegin', `<button>${1}</button>`);
-    pagination.insertAdjacentHTML('beforebegin', `<span>...</span>`);
-    pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+function startState() {
+  for (let i = 5; i >= 1; i--) {
     pagination.insertAdjacentHTML(
-      'beforeend',
-      `<button>${totalPages}</button>`
+      'afterbegin',
+      `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
     );
   }
-  for (let i = 0; i <= page; i++) {
+}
+
+startState();
+
+//bez promise nie działa listener w funkcji changeBtn
+function middleState() {
+  for (let i = 0; i <= totalPages; i++) {
     if (page > 5 && page < totalPages - 4) {
       for (let i = page + 2; i >= page - 2; i--) {
         pagination.insertAdjacentHTML(
           'afterbegin',
-          `<button class="pagination-button">${i}</button>`
+          `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
         );
       }
-      for (let i = 0; i <= pagination.children.length; i++) {
-        actualPage = pagination.children[i + 2];
-        return;
-      }
-      return;
+      actualPage = pagination.children[2];
+      return pagination;
     }
-    // if (page >= totalPages - 4) {
-    //   const paginationBtn = document.querySelector('.pagination-button');
-    //   paginationBtn.insertAdjacentHTML('afterbegin', '...');
-    // }
   }
 }
-middleState();
+
+// function middleState() {
+//   // pagination.insertAdjacentHTML('beforebegin', `<button>${1}</button>`);
+//   // pagination.insertAdjacentHTML('beforebegin', `<span>...</span>`);
+//   // pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+//   // pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
+
+//     // if (page >= totalPages - 4) {
+//     //   const paginationBtn = document.querySelector('.pagination-button');
+//     //   paginationBtn.insertAdjacentHTML('afterbegin', '...');
+//     // }
+//   }
 
 function pageForward() {
   page = totalPages;
@@ -62,11 +69,9 @@ function pageForward() {
   arrowLeft.classList.remove('hidden');
   arrowRight.classList.add('hidden');
   paginationButtons = document.querySelectorAll('.pagination-button');
-  for (let i = 0; i <= paginationButtons.length - 1; i++) {
-    pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
-    pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
-    return;
-  }
+  pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
+  pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
+
   // renderPost();
 }
 
@@ -82,15 +87,38 @@ function pageBackward() {
   arrowRight.classList.remove('hidden');
   arrowLeft.classList.add('hidden');
   paginationButtons = document.querySelectorAll('.pagination-button');
-  for (let i = 0; i <= paginationButtons.length - 1; i++) {
-    pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
-    pagination.insertAdjacentHTML(
-      'beforeend',
-      `<button>${totalPages}</button>`
-    );
-    return;
-  }
+  pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+  pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
   // renderPost();
 }
+
+function buttonClick(e) {
+  page = actualPage = e.currentTarget.textContent;
+  pagination.innerHTML = '';
+  for (let i = Number(actualPage) + 2; i >= Number(actualPage) - 2; i--) {
+    if (Number(actualPage) <= 3) {
+      return startState();
+    }
+    if (Number(actualPage) >= totalPages) {
+      return pageForward();
+    }
+    pagination.insertAdjacentHTML(
+      'afterbegin',
+      `<button class="pagination-button">${i}</button>`
+    );
+  }
+}
+
+function changeBtn(e) {
+  if (e.target.nodeName !== 'BUTTON') {
+    return;
+  } else if (pagination.children.length > 0) {
+    for (let i = 0; i <= pagination.children.length - 1; i++) {
+      pagination.children[i].addEventListener('click', buttonClick);
+    }
+  } else return;
+}
+
+pagination.addEventListener('click', changeBtn);
 
 // export { page };
