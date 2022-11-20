@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 const API_KEY =`209b988e1e5a3c54f84bfbe290fdf3e2`
 getMovie = document.getElementById(`movie-list`)
 function fetchMovies(API_KEY){
@@ -34,4 +32,3 @@ function start(fetchMovies){
 
 
 
->>>>>>> Stashed changes
