@@ -6,7 +6,9 @@ function fetchMovies(API_KEY) {
     .then(data => start(data));
 }
 fetchMovies(API_KEY);
+
 let options = '';
+
 
 function start(fetchMovies) {
   let moviez = '';
