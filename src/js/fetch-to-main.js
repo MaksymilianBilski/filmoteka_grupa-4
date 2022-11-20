@@ -14,7 +14,7 @@ function start(fetchMovies) {
   let movies = fetchMovies;
   let movieIndex = movies.results;
   console.log(movies.results);
-  for (i = 0; i < movieIndex.length; i++) {
+  for (let i = 0; i < movieIndex.length; i++) {
     moviez += `
         <li> 
         <div class="movie-container">
