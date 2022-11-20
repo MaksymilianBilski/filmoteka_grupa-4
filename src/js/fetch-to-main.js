@@ -10,7 +10,7 @@ let options = '';
 
 function start(fetchMovies) {
   let moviez = '';
-  movies = fetchMovies;
+  let movies = fetchMovies;
   movieIndex = movies.results;
   console.log(movies.results);
   for (i = 0; i < movieIndex.length; i++) {
