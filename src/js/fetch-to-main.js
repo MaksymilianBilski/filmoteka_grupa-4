@@ -7,6 +7,9 @@ function fetchMovies(API_KEY) {
 }
 fetchMovies(API_KEY);
 
+let options = '';
+
+
 function start(fetchMovies) {
   let moviez = '';
   movies = fetchMovies;
