@@ -9,11 +9,10 @@ fetchMovies(API_KEY);
 
 let options = '';
 
-
 function start(fetchMovies) {
   let moviez = '';
   let movies = fetchMovies;
-  movieIndex = movies.results;
+  let movieIndex = movies.results;
   console.log(movies.results);
   for (i = 0; i < movieIndex.length; i++) {
     moviez += `
