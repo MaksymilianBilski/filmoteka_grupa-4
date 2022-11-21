@@ -256,6 +256,9 @@ function buttonClick(e) {
 
 function changeBtn(e) {
   // if didnt clicked properly
+  if (e.target.nodeName === 'DIV') {
+    return;
+  }
   if (e.target.nodeName !== 'BUTTON') {
     startState();
     actualPage = page;
