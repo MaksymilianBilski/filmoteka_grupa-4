@@ -21,12 +21,35 @@ arrowRight.addEventListener('click', () => {
   pageForward();
 });
 
+arrowRight.addEventListener('mouseover', e => {
+  e.target.style.transition = 'all 250ms';
+  e.target.style.backgroundColor = '#ff6b08';
+  e.target.style.borderRadius = '4px';
+});
+arrowRight.addEventListener('mouseout', e => {
+  e.target.style.backgroundColor = '#e5e5e5';
+  e.target.style.borderRadius = '0px';
+});
+
+arrowLeft.addEventListener('mouseover', e => {
+  e.target.style.transition = 'all 250ms';
+  e.target.style.backgroundColor = '#ff6b08';
+  e.target.style.borderRadius = '4px';
+});
+arrowLeft.addEventListener('mouseout', e => {
+  e.target.style.backgroundColor = '#e5e5e5';
+  e.target.style.borderRadius = '0px';
+});
+
 startState();
 
 //creating the start state in pagination
 function startState() {
   //dots before last page + last page
-  pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+  pagination.insertAdjacentHTML(
+    'beforeend',
+    `<span class="end-dots">...</span>`
+  );
   pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
   //creating frist 5 pages
   for (let i = 5; i >= 1; i--) {
@@ -75,8 +98,12 @@ function pageForward() {
     );
   }
   //hide and show arrow
-  arrowRight.classList.add('hidden');
-  arrowLeft.classList.remove('hidden');
+  arrowRight.style.transition = 'all 250ms';
+  arrowRight.style.visibility = 'hidden';
+  arrowLeft.style.visibility = 'visible';
+  arrowLeft.style.transition = 'all 250ms';
+  // // arrowRight.classList.add('hidden');
+  // arrowLeft.classList.remove('hidden');
   //insert first page and dots after it
   pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
   pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
@@ -98,10 +125,17 @@ function pageBackward() {
     );
   }
   // hide and show arrow
-  arrowLeft.classList.add('hidden');
-  arrowRight.classList.remove('hidden');
+  arrowRight.style.transition = 'all 250ms';
+  arrowRight.style.visibility = 'visible';
+  arrowLeft.style.visibility = 'hidden';
+  arrowLeft.style.transition = 'all 250ms';
+  // arrowLeft.classList.add('hidden');
+  // arrowRight.classList.remove('hidden');
   //insert dots at the end, and amount of total pages after it
-  pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+  pagination.insertAdjacentHTML(
+    'beforeend',
+    `<span class="end-dots">...</span>`
+  );
   pagination.insertAdjacentHTML(
     'beforeend',
     `<button class="pagination-button">${totalPages}</button>`
@@ -127,25 +161,30 @@ function buttonClick(e) {
       'afterbegin',
       `<button class="pagination-button">${totalPages}</button>`
     );
-    pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
-    arrowRight.classList.remove('hidden');
-    arrowLeft.classList.remove('hidden');
-    arrowRight.classList.remove('hidden');
+    pagination.insertAdjacentHTML(
+      'afterbegin',
+      `<span class="end-dots">...</span>`
+    );
   }
   if (actualPage <= 4) {
     dots.innerHTML = '';
   }
   if (actualPage <= 3) {
-    arrowLeft.classList.add('hidden');
+    arrowLeft.style.transition = 'all 250ms';
+    arrowLeft.style.visibility = 'hidden';
   }
   if (actualPage >= totalPages - 3) {
-    arrowRight.classList.add('hidden');
+    arrowRight.style.transition = 'all 250ms';
+    arrowRight.style.visibility = 'hidden';
   }
   // dynamic creating first 5 pages, and last 5 pages
   for (let i = Number(actualPage) + 2; i >= Number(actualPage) - 2; i--) {
-    // first 5 pages condition
+    // first 5 pages condition + dots beforeend and last page
     if (Number(actualPage) <= 3) {
-      pagination.insertAdjacentHTML('beforeend', `<span>...</span>`);
+      pagination.insertAdjacentHTML(
+        'beforeend',
+        `<span class="end-dots">...</span>`
+      );
       pagination.insertAdjacentHTML(
         'beforeend',
         `<button class="pagination-button">${totalPages}</button>`
@@ -177,7 +216,29 @@ function changeBtn(e) {
   } //if there are some buttons, do a loop on this buttons and add eventlistener to it
   else if (pagination.children.length > 0) {
     for (let i = 0; i <= pagination.children.length - 1; i++) {
-      // !!TO DO!!
+      // buttons styling
+      pagination.children[i].style.marginLeft = '2px';
+      pagination.children[i].style.backgroundColor = '#e5e5e5';
+      pagination.children[i].style.border = '1px solid transparent';
+      // hover effects
+      if (!pagination.children[i].classList.contains('end-dots')) {
+        pagination.children[i].addEventListener('mouseover', e => {
+          e.target.style.transition = 'all 250ms';
+          e.target.style.backgroundColor = '#ff6b08';
+          e.target.style.borderRadius = '4px';
+        });
+        pagination.children[i].addEventListener('mouseout', e => {
+          e.target.style.backgroundColor = '#e5e5e5';
+          e.target.style.borderRadius = '0px';
+        });
+      }
+      //end dots styling
+      if (pagination.children[i].classList.contains('end-dots')) {
+        pagination.children[i].style.marginLeft = '4px';
+        pagination.children[i].style.marginRight = '4px';
+        pagination.children[i].style.border = '1px solid transparent';
+      }
+      //click events on buttons
       pagination.children[i].addEventListener('click', buttonClick);
       dots.addEventListener('click', buttonClick);
     }
