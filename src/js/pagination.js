@@ -1,5 +1,5 @@
 // import { page, renderPost, totalPages } from '';
-// import { Notify } from 'notiflix';
+import { Notify } from 'notiflix';
 let page = 50;
 let totalPages = 100;
 let actualPage = 1;
@@ -11,8 +11,19 @@ const arrowLeft = document.querySelector('.arrow-left');
 const arrowRight = document.querySelector('.arrow-right');
 let paginationButtons = document.querySelectorAll('.pagination-button');
 
+//geometric for pagination
+dots.style.display = 'flex';
 pagination.style.display = 'flex';
 paginationBox.style.display = 'flex';
+
+//arrows styles
+arrowLeft.style.visibility = 'hidden';
+arrowLeft.style.border = 'none';
+arrowLeft.style.cursor = 'pointer';
+arrowLeft.style.marginRight = '10px';
+arrowRight.style.marginLeft = '10px';
+arrowRight.style.border = 'none';
+arrowRight.style.cursor = 'pointer';
 
 arrowLeft.addEventListener('click', () => {
   pageBackward();
@@ -21,13 +32,14 @@ arrowRight.addEventListener('click', () => {
   pageForward();
 });
 
+//arrows hover effects
 arrowRight.addEventListener('mouseover', e => {
   e.target.style.transition = 'all 250ms';
   e.target.style.backgroundColor = '#ff6b08';
   e.target.style.borderRadius = '4px';
 });
 arrowRight.addEventListener('mouseout', e => {
-  e.target.style.backgroundColor = '#e5e5e5';
+  e.target.style.backgroundColor = 'transparent';
   e.target.style.borderRadius = '0px';
 });
 
@@ -37,12 +49,46 @@ arrowLeft.addEventListener('mouseover', e => {
   e.target.style.borderRadius = '4px';
 });
 arrowLeft.addEventListener('mouseout', e => {
-  e.target.style.backgroundColor = '#e5e5e5';
+  e.target.style.backgroundColor = 'transparent';
   e.target.style.borderRadius = '0px';
 });
 
 startState();
-
+stylesAndListeners();
+// loop for start state  - styles and event listeners
+function stylesAndListeners() {
+  for (let i = 0; i <= pagination.children.length - 1; i++) {
+    // buttons styling
+    pagination.children[i].style.marginLeft = '2px';
+    pagination.children[i].style.backgroundColor = 'transparent';
+    pagination.children[i].style.border = 'none';
+    pagination.children[i].style.cursor = 'pointer';
+    // hover effects
+    if (
+      !pagination.children[i].classList.contains('end-dots') &&
+      !pagination.children[i].classList.contains('begining-dots')
+    ) {
+      pagination.children[i].addEventListener('mouseover', e => {
+        e.target.style.transition = 'all 250ms';
+        e.target.style.backgroundColor = '#ff6b08';
+        e.target.style.borderRadius = '4px';
+      });
+      pagination.children[i].addEventListener('mouseout', e => {
+        e.target.style.backgroundColor = 'transparent';
+        e.target.style.borderRadius = '0px';
+      });
+    }
+    //end dots styling
+    if (pagination.children[i].classList.contains('end-dots')) {
+      pagination.children[i].style.marginLeft = '4px';
+      pagination.children[i].style.marginRight = '4px';
+      pagination.children[i].style.border = 'none';
+    }
+    //click events on buttons
+    pagination.children[i].addEventListener('click', buttonClick);
+    dots.addEventListener('click', buttonClick);
+  }
+}
 //creating the start state in pagination
 function startState() {
   //dots before last page + last page
@@ -57,30 +103,6 @@ function startState() {
       'afterbegin',
       `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
     );
-  }
-}
-
-//creating the middle state of pagination
-function middleState() {
-  //loop by the value of total amount of pages.
-  for (let i = 0; i <= totalPages; i++) {
-    // condition for pages between: page 5 and page last-4
-    if (actualPage > 5 && page < totalPages - 4) {
-      // loop that makes pages in middle state( firstPage... thisLoopPages ...lastPage)
-      for (let i = actualPage + 2; i >= actualPage - 2; i--) {
-        pagination.insertAdjacentHTML(
-          'afterbegin',
-          `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
-        );
-        if (actualPage > 5) {
-          console.log('cos');
-          pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
-          pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
-        }
-      }
-      // set the actualPage to middle element of 5 buttons
-      actualPage = pagination.children[2];
-    }
   }
 }
 
@@ -102,12 +124,16 @@ function pageForward() {
   arrowRight.style.visibility = 'hidden';
   arrowLeft.style.visibility = 'visible';
   arrowLeft.style.transition = 'all 250ms';
-  // // arrowRight.classList.add('hidden');
-  // arrowLeft.classList.remove('hidden');
   //insert first page and dots after it
-  pagination.insertAdjacentHTML('afterbegin', `<span>...</span>`);
-  pagination.insertAdjacentHTML('afterbegin', `<button>${1}</button>`);
-
+  pagination.insertAdjacentHTML(
+    'afterbegin',
+    `<span class="begining-dots">...</span>`
+  );
+  pagination.insertAdjacentHTML(
+    'afterbegin',
+    `<button class="pagination-button">${1}</button>`
+  );
+  stylesAndListeners();
   // renderPost();
 }
 
@@ -129,8 +155,6 @@ function pageBackward() {
   arrowRight.style.visibility = 'visible';
   arrowLeft.style.visibility = 'hidden';
   arrowLeft.style.transition = 'all 250ms';
-  // arrowLeft.classList.add('hidden');
-  // arrowRight.classList.remove('hidden');
   //insert dots at the end, and amount of total pages after it
   pagination.insertAdjacentHTML(
     'beforeend',
@@ -138,8 +162,9 @@ function pageBackward() {
   );
   pagination.insertAdjacentHTML(
     'beforeend',
-    `<button class="pagination-button">${totalPages}</button>`
+    `<button class="pagination-button" style="background-color: transparent; border: none;">${totalPages}</button>`
   );
+  stylesAndListeners();
   // renderPost();
 }
 
@@ -150,12 +175,15 @@ function buttonClick(e) {
   dots.innerHTML = '';
   // dynamic creating of pages in middle state
   if (actualPage >= 4 && actualPage <= totalPages - 4) {
+    arrowLeft.style.visibility = 'visible';
+    arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
-    dots.innerHTML = `<span>...</span>`;
+    dots.innerHTML = `<span class="begining-dots">...</span>`;
     dots.insertAdjacentHTML(
       'afterbegin',
-      `<button class="pagination-button">${1}</button>`
+      `<button class="pagination-button" style="cursor: pointer;">${1}</button>`
     );
+
     // //dots and last page
     pagination.insertAdjacentHTML(
       'afterbegin',
@@ -206,42 +234,37 @@ function buttonClick(e) {
       'afterbegin',
       `<button class="pagination-button">${i}</button>`
     );
+    if (dots.children.length >= 1) {
+      dots.children[0].style.backgroundColor = 'transparent';
+      dots.children[0].style.border = 'none';
+      dots.children[0].addEventListener('mouseover', e => {
+        e.target.style.transition = 'all 250ms';
+        e.target.style.backgroundColor = '#ff6b08';
+        e.target.style.borderRadius = '4px';
+      });
+      dots.children[0].addEventListener('mouseout', e => {
+        e.target.style.backgroundColor = 'transparent';
+        e.target.style.borderRadius = '0px';
+      });
+      dots.children[1].style.marginLeft = '4px';
+      dots.children[1].style.marginRight = '4px';
+      dots.children[1].style.border = 'none';
+      dots.children[1].style.backgroundColor = 'transparent';
+    }
   }
 }
 
 function changeBtn(e) {
   // if didnt clicked properly
   if (e.target.nodeName !== 'BUTTON') {
+    startState();
+    actualPage = page;
+    stylesAndListeners();
     return;
   } //if there are some buttons, do a loop on this buttons and add eventlistener to it
   else if (pagination.children.length > 0) {
-    for (let i = 0; i <= pagination.children.length - 1; i++) {
-      // buttons styling
-      pagination.children[i].style.marginLeft = '2px';
-      pagination.children[i].style.backgroundColor = '#e5e5e5';
-      pagination.children[i].style.border = '1px solid transparent';
-      // hover effects
-      if (!pagination.children[i].classList.contains('end-dots')) {
-        pagination.children[i].addEventListener('mouseover', e => {
-          e.target.style.transition = 'all 250ms';
-          e.target.style.backgroundColor = '#ff6b08';
-          e.target.style.borderRadius = '4px';
-        });
-        pagination.children[i].addEventListener('mouseout', e => {
-          e.target.style.backgroundColor = '#e5e5e5';
-          e.target.style.borderRadius = '0px';
-        });
-      }
-      //end dots styling
-      if (pagination.children[i].classList.contains('end-dots')) {
-        pagination.children[i].style.marginLeft = '4px';
-        pagination.children[i].style.marginRight = '4px';
-        pagination.children[i].style.border = '1px solid transparent';
-      }
-      //click events on buttons
-      pagination.children[i].addEventListener('click', buttonClick);
-      dots.addEventListener('click', buttonClick);
-    }
+    //the same loop as at the begining - styles and eventlisteners
+    stylesAndListeners();
   } else return;
 }
 
@@ -251,12 +274,15 @@ pagination.addEventListener('click', changeBtn);
 function testBtn() {
   paginationBox.insertAdjacentHTML(
     'afterbegin',
-    `<button class="test">klik</button>`
+    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
   );
 }
 testBtn();
 const tBtn = document.querySelector('.test');
 tBtn.addEventListener('click', () => {
-  console.log(actualPage);
+  let currentPage = actualPage;
+  let pageExport = page;
+  Notify.info('current page = ' + `${currentPage}`);
+  Notify.info('page to export = ' + `${pageExport}`);
 });
 // export { page };
