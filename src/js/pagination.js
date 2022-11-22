@@ -10,15 +10,8 @@ const startPageDots = document.querySelector('.start-page-dots');
 const arrowLeft = document.querySelector('.arrow-left');
 const arrowRight = document.querySelector('.arrow-right');
 let paginationButtons = document.querySelectorAll('.pagination-button');
-const svgR = document.querySelector('.svgR');
-const svgL = document.querySelector('.svgL');
-svgL.style.fill = 'green';
-svgR.addEventListener('mouseout', () => {
-  svgR.style.fill = 'black';
-});
-svgR.addEventListener('mouseover', () => {
-  svgR.style.fill = 'red';
-});
+const svgR = document.querySelector('.svg-right');
+const svgL = document.querySelector('.svg-left');
 
 //geometric for whole pagination
 startPageDots.style.display = 'flex';
@@ -54,27 +47,42 @@ arrowRight.addEventListener('click', () => {
 });
 
 //arrows hover effects
-arrowRight.addEventListener('mouseover', e => {
-  e.target.style.transition = 'all 250ms';
-  e.target.style.backgroundColor = '#ff6b08';
-  e.target.style.borderRadius = '4px';
+svgL.addEventListener('mouseout', e => {
+  e.target.style.transition = 'all 150ms';
+  e.target.style.fill = 'black';
 });
-arrowRight.addEventListener('mouseout', e => {
-  e.target.style.transition = 'all 250ms';
-  e.target.style.backgroundColor = 'transparent';
-  e.target.style.borderRadius = '0px';
+svgL.addEventListener('mouseover', e => {
+  e.target.style.transition = 'all 150ms';
+  e.target.style.fill = '#ff6b08';
+});
+svgR.addEventListener('mouseout', e => {
+  e.target.style.transition = 'all 150ms';
+  e.target.style.fill = 'black';
+});
+svgR.addEventListener('mouseover', e => {
+  e.target.style.transition = 'all 150ms';
+  e.target.style.fill = '#ff6b08';
 });
 
-arrowLeft.addEventListener('mouseover', e => {
-  e.target.style.transition = 'all 250ms';
-  e.target.style.backgroundColor = '#ff6b08';
-  e.target.style.borderRadius = '4px';
-});
-arrowLeft.addEventListener('mouseout', e => {
-  e.target.style.transition = 'all 250ms';
-  e.target.style.backgroundColor = 'transparent';
-  e.target.style.borderRadius = '0px';
-});
+// arrowRight.addEventListener('mouseover', e => {
+//   e.target.style.transition = 'all 250ms';
+//   e.target.style.borderRadius = '4px';
+// });
+// arrowRight.addEventListener('mouseout', e => {
+//   e.target.style.transition = 'all 250ms';
+//   e.target.style.backgroundColor = 'transparent';
+//   e.target.style.borderRadius = '0px';
+// });
+
+// arrowLeft.addEventListener('mouseover', e => {
+//   e.target.style.transition = 'all 250ms';
+//   e.target.style.borderRadius = '4px';
+// });
+// arrowLeft.addEventListener('mouseout', e => {
+//   e.target.style.transition = 'all 250ms';
+//   e.target.style.backgroundColor = 'transparent';
+//   e.target.style.borderRadius = '0px';
+// });
 
 startState();
 stylesAndListeners();
