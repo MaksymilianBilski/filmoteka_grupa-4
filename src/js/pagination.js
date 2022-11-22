@@ -10,6 +10,15 @@ const startPageDots = document.querySelector('.start-page-dots');
 const arrowLeft = document.querySelector('.arrow-left');
 const arrowRight = document.querySelector('.arrow-right');
 let paginationButtons = document.querySelectorAll('.pagination-button');
+const svgR = document.querySelector('.svgR');
+const svgL = document.querySelector('.svgL');
+svgL.style.fill = 'green';
+svgR.addEventListener('mouseout', () => {
+  svgR.style.fill = 'black';
+});
+svgR.addEventListener('mouseover', () => {
+  svgR.style.fill = 'red';
+});
 
 //geometric for whole pagination
 startPageDots.style.display = 'flex';
