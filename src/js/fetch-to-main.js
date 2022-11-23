@@ -30,7 +30,7 @@ function start(movies) {
         console.log(typeof releaseDate);
 
         getMovie.insertAdjacentHTML(
-          'afterend',
+          'afterbegin',
           `
         <li data-film="${filmDetails.id}" style="list-style-type:none;">
         <div class="movie-container">
@@ -59,4 +59,4 @@ async function fetchDetails(filmId, API_KEY) {
   const filmDetails = await response.json();
   return filmDetails;
 }
-export { fetchMovies, start, fetchDetails };
+export { fetchMovies, start, fetchDetails, API_KEY };

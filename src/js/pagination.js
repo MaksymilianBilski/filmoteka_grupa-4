@@ -1,9 +1,23 @@
 // import { page, renderPost, totalPages } from '';
 import { Notify } from 'notiflix';
-let page = 50;
+import * as module from './fetch-to-main';
+let page = 1;
 let totalPages = 100;
 let actualPage = 1;
 
+function handleScroll(evt) {
+  const scrollPos = evt.path[1].pageYOffset;
+  window.sessionStorage.setItem('STORAGE_KEY', scrollPos);
+}
+document.addEventListener('scroll', handleScroll);
+
+document.addEventListener('refresh', () => {
+  const y = sessionStorage.getItem('STORAGE_KEY') || 0;
+  console.log(y);
+  window.scroll({ top: y });
+});
+
+let getMovie = document.getElementById(`movie-list`);
 const pagination = document.querySelector('.pagination');
 const paginationBox = document.querySelector('.pagination-box');
 const startPageDots = document.querySelector('.start-page-dots');
@@ -169,7 +183,7 @@ function pageForward() {
   //insert first page and dots after it
   pagination.insertAdjacentHTML(
     'afterbegin',
-    `<span class="begining-dots" style="cursor: default;">...</span>`
+    `<span class="begining-dots" style="cursor: default; margin: none;">...</span>`
   );
   pagination.insertAdjacentHTML(
     'afterbegin',
@@ -223,7 +237,7 @@ function buttonClick(e) {
     arrowLeft.style.visibility = 'visible';
     arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
-    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default;">...</span>`;
+    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default; margin: none;">...</span>`;
     startPageDots.insertAdjacentHTML(
       'afterbegin',
       `<button class="pagination-button" style="cursor: pointer; height: 40px; width: 40px;">${1}</button>`
@@ -294,8 +308,13 @@ function changeBtn(e) {
   if (e.target.nodeName === 'DIV') {
     return;
   }
+  if (e.target.nodeName === 'SPAN') {
+    return;
+  }
   // } //if there are some buttons(and should be), do a loop to add event listeners and styles
   else if (pagination.children.length > 0) {
+    getMovie.innerHTML = '';
+    module.fetchMovies(module.API_KEY + `&page=${page}`);
     stylesAndListeners();
   } else return;
 }
