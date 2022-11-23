@@ -29,6 +29,20 @@ function start(movies) {
         console.log(releaseDate);
         console.log(typeof releaseDate);
 
+
+
+function start(fetchMovies){
+    let moviez ="";
+    movies = fetchMovies;
+    movieIndex =movies.results;
+    console.log(movies.results);
+    for (i =0; i < movieIndex.length; i++){
+        moviez += `
+        <li> 
+        <div class="movie-container">
+        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${movieIndex[i].poster_path}>
+        <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
+
         getMovie.insertAdjacentHTML(
           'afterbegin',
           `
@@ -37,10 +51,14 @@ function start(movies) {
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
           filmDetails.poster_path
         }>
+        
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
-        <p class="movie-categories">${filmCategories}</p>
+        <div id="movie-info">
+        <p class="movie-categories">${filmCategories} | </p>
         <p class="year-of-release">${releaseDate}</p>
-        <p class="rating">${filmDetails.vote_average.toFixed(1)}</p>
+        </div>
+
+
         </div>
         </li>`
         );
