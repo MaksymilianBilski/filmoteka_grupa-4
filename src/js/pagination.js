@@ -23,7 +23,7 @@ const paginationBox = document.querySelector('.pagination-box');
 const startPageDots = document.querySelector('.start-page-dots');
 const arrowLeft = document.querySelector('.arrow-left');
 const arrowRight = document.querySelector('.arrow-right');
-let paginationButtons = document.querySelectorAll('.pagination-button');
+
 const svgR = document.querySelector('.svg-right');
 const svgL = document.querySelector('.svg-left');
 
@@ -40,25 +40,10 @@ paginationBox.style.alignItems = 'center';
 arrowLeft.style.visibility = 'hidden';
 arrowLeft.style.backgroundColor = 'transparent';
 arrowLeft.style.border = 'none';
-arrowLeft.style.cursor = 'pointer';
-arrowLeft.style.marginRight = '10px';
-arrowLeft.style.width = '40px';
-arrowLeft.style.height = '40px';
 
 arrowRight.style.marginLeft = '10px';
 arrowRight.style.border = 'none';
 arrowRight.style.backgroundColor = 'transparent';
-arrowRight.style.cursor = 'pointer';
-arrowRight.style.width = '40px';
-arrowRight.style.height = '40px';
-
-// add arrow functions on click
-arrowLeft.addEventListener('click', () => {
-  pageBackward();
-});
-arrowRight.addEventListener('click', () => {
-  pageForward();
-});
 
 //arrows hover effects
 svgL.addEventListener('mouseout', e => {
@@ -68,6 +53,7 @@ svgL.addEventListener('mouseout', e => {
 svgL.addEventListener('mouseover', e => {
   e.target.style.transition = 'all 150ms';
   e.target.style.fill = '#ff6b08';
+  e.target.style.cursor = 'pointer';
 });
 svgR.addEventListener('mouseout', e => {
   e.target.style.transition = 'all 150ms';
@@ -76,27 +62,16 @@ svgR.addEventListener('mouseout', e => {
 svgR.addEventListener('mouseover', e => {
   e.target.style.transition = 'all 150ms';
   e.target.style.fill = '#ff6b08';
+  e.target.style.cursor = 'pointer';
 });
 
-// arrowRight.addEventListener('mouseover', e => {
-//   e.target.style.transition = 'all 250ms';
-//   e.target.style.borderRadius = '4px';
-// });
-// arrowRight.addEventListener('mouseout', e => {
-//   e.target.style.transition = 'all 250ms';
-//   e.target.style.backgroundColor = 'transparent';
-//   e.target.style.borderRadius = '0px';
-// });
-
-// arrowLeft.addEventListener('mouseover', e => {
-//   e.target.style.transition = 'all 250ms';
-//   e.target.style.borderRadius = '4px';
-// });
-// arrowLeft.addEventListener('mouseout', e => {
-//   e.target.style.transition = 'all 250ms';
-//   e.target.style.backgroundColor = 'transparent';
-//   e.target.style.borderRadius = '0px';
-// });
+// add arrow functions on click
+svgL.addEventListener('click', () => {
+  pageBackward();
+});
+svgR.addEventListener('click', () => {
+  pageForward();
+});
 
 startState();
 stylesAndListeners();
@@ -164,8 +139,10 @@ function startState() {
 
 //moving all pages forward
 function pageForward() {
+  getMovie.innerHTML = '';
   // set the page and actualPage for last page
   actualPage = page = totalPages;
+  module.fetchMovies(module.API_KEY + `&page=${page}`);
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
   // creating the last 5 pages
@@ -194,8 +171,9 @@ function pageForward() {
 
 //moving all pages backward
 function pageBackward() {
+  getMovie.innerHTML = '';
   // setting page and actual page to 1
-  actualPage = page = 1;
+  page = actualPage = 1;
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
   // creating the first 5 elements
@@ -221,6 +199,9 @@ function pageBackward() {
     `<button class="pagination-button" style="background-color: transparent; border: none;">${totalPages}</button>`
   );
   stylesAndListeners();
+  module.fetchMovies(module.API_KEY + `&page=${page}`);
+  console.log(getMovie.children.length);
+  getMovie.innerHTML = '';
 }
 
 function buttonClick(e) {
@@ -232,6 +213,7 @@ function buttonClick(e) {
   page = actualPage = e.target.textContent;
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
+
   // condition for dynamic creating pages in middle state
   if (actualPage >= 4 && actualPage <= totalPages - 4) {
     arrowLeft.style.visibility = 'visible';
@@ -275,7 +257,6 @@ function buttonClick(e) {
     }
     // last 5 pages condition
     if (Number(actualPage) >= totalPages - 3) {
-      pageForward();
       return (page = actualPage = e.currentTarget.textContent);
     }
     pagination.insertAdjacentHTML(
@@ -311,7 +292,7 @@ function changeBtn(e) {
   if (e.target.nodeName === 'SPAN') {
     return;
   }
-  // } //if there are some buttons(and should be), do a loop to add event listeners and styles
+  // } //if there are some buttons, do a loop and add event listeners + styles
   else if (pagination.children.length > 0) {
     getMovie.innerHTML = '';
     module.fetchMovies(module.API_KEY + `&page=${page}`);
@@ -335,5 +316,6 @@ tBtn.addEventListener('click', () => {
   let pageExport = page;
   Notify.info('current page = ' + `${currentPage}`);
   Notify.info('page to export = ' + `${pageExport}`);
+  Notify.info('amount of fetched movies' + getMovie.children.length);
 });
 // export { page };

@@ -25,8 +25,8 @@ function start(movies) {
       /*zmiana formatu daty*/
       const date = new Date(filmDetails.release_date);
       const releaseDate = date.getFullYear();
-      console.log(filmDetails);
-      console.log(typeof releaseDate);
+      // console.log(filmDetails);
+      // console.log(typeof releaseDate);
 
       getMovie.insertAdjacentHTML(
         'afterbegin',
@@ -57,7 +57,6 @@ async function fetchDetails(filmId, API_KEY) {
     throw new Error(response.statusText);
   }
   const filmDetails = await response.json();
-  console.log(filmDetails);
   return filmDetails;
 }
 
