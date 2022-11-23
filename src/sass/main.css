@@ -1,21 +1,153 @@
+@charset "UTF-8";
+.header {
+  padding-top: 48px;
+  height: 230px;
+  background-image: url("../images/header/home/mobile/home-banner-320x230@1x.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+@media screen and (min-width: 768px) {
+  .header {
+    padding-top: 41px;
+    background-image: url("../images/header/home/tablet/home-banner-768x230@1x.jpg");
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header {
+    background-image: url("../images/header/home/desktop/home-banner-1024x230@1x.jpg");
+  }
+}
+@media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .header {
+    background-image: url("../images/header/home/mobile/home-banner-640x460@2x.jpg");
+  }
+}
+@media screen and (min-device-pixel-ratio: 2) and (min-width: 768px), screen and (min-resolution: 192dpi) and (min-width: 768px), screen and (min-resolution: 2dppx) and (min-width: 768px) {
+  .header {
+    background-image: url("../images/header/home/tablet/home-banner-1536x460@2x.jpg");
+  }
+}
+@media screen and (min-device-pixel-ratio: 2) and (min-width: 1024px), screen and (min-resolution: 192dpi) and (min-width: 1024px), screen and (min-resolution: 2dppx) and (min-width: 1024px) {
+  .header {
+    background-image: url("../images/header/home/desktop/home-banner-2048x460@2x.jpg");
+  }
+}
+.header--library {
+  padding-top: 48px;
+  height: 230px;
+  background-image: url("../images/header/my-library/mobile/library-banner-320x230@1x.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+@media screen and (min-width: 768px) {
+  .header--library {
+    padding-top: 41px;
+    background-image: url("../images/header/my-library/tablet/library-banner-768x230@1x.jpg");
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header--library {
+    background-image: url("../images/header/my-library/desktop/library-banner-1024x230@1x.jpg");
+  }
+}
+@media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .header--library {
+    background-image: url("../images/header/my-library/mobile/library-banner-640x460@2x.jpg");
+  }
+}
+@media screen and (min-device-pixel-ratio: 2) and (min-width: 768px), screen and (min-resolution: 192dpi) and (min-width: 768px), screen and (min-resolution: 2dppx) and (min-width: 768px) {
+  .header--library {
+    background-image: url("../images/header/my-library/tablet/library-banner-1536x460@2x.jpg");
+  }
+}
+@media screen and (min-device-pixel-ratio: 2) and (min-width: 1024px), screen and (min-resolution: 192dpi) and (min-width: 1024px), screen and (min-resolution: 2dppx) and (min-width: 1024px) {
+  .header--library {
+    background-image: url("../images/header/my-library/desktop/library-banner-2048x460@2x.jpg");
+  }
+}
+
 .hidden {
   visibility: hidden;
-}/*# sourceMappingURL=main.css.map */
+}
 
-#movie-list{
-  display:grid;
+#movie-list {
+  display: grid;
   grid-template-columns: auto auto auto;
-  
-}
-.movie-title{
-  padding-left:25px;
-}
-.movie-container{
-
 }
 
-.movie-image{
-  border-radius:5px;
+.movie-title {
+  padding-left: 25px;
+}
+
+.movie-image {
+  border-radius: 5px;
   width: 274px;
   height: 398px;
 }
+
+:root {
+  --brand-color: black;
+  --text-color-1: #ffffff;
+  --text-color-2: #ff6b08;
+  --text-color-3: #545454;
+  --brand-background-color: #e5e5e5;
+  --background-color-1: #ff6b01;
+  --background-color-2: #f5f4fa;
+  --background-color-3: #e5e5e5;
+  --background-color-4: #f7f7f7;
+  --icon-color: #818181;
+}
+
+h1,
+h2,
+h3,
+h4,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  font-family: "Roboto", "Verdana", "Tahoma", sans-serif;
+  color: var(--brand-color);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/*responsywność obrazów*/
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+@media screen and (max-width: 767) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    padding-left: 76px;
+    padding-right: 75px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container {
+    padding-left: 71px;
+    padding-right: 71px;
+  }
+}/*# sourceMappingURL=main.css.map */
