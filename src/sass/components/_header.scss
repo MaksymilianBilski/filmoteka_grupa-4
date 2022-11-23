@@ -1,0 +1,57 @@
+.header {
+  padding-top: 48px;
+  height: 230px;
+
+  background-image: url('../images/header/home/mobile/home-banner-320x230@1x.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 41px;
+    background-image: url('../images/header/home/tablet/home-banner-768x230@1x.jpg');
+  }
+  @media screen and (min-width: 1024px) {
+    background-image: url('../images/header/home/desktop/home-banner-1024x230@1x.jpg');
+  }
+
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: url('../images/header/home/mobile/home-banner-640x460@2x.jpg');
+    @media screen and (min-width: 768px) {
+      background-image: url('../images/header/home/tablet/home-banner-1536x460@2x.jpg');
+    }
+    @media screen and (min-width: 1024px) {
+      background-image: url('../images/header/home/desktop/home-banner-2048x460@2x.jpg');
+    }
+  }
+  &--library {
+    padding-top: 48px;
+    height: 230px;
+    background-image: url('../images/header/my-library/mobile/library-banner-320x230@1x.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    @media screen and (min-width: 768px) {
+      padding-top: 41px;
+      background-image: url('../images/header/my-library/tablet/library-banner-768x230@1x.jpg');
+    }
+    @media screen and (min-width: 1024px) {
+      background-image: url('../images/header/my-library/desktop/library-banner-1024x230@1x.jpg');
+    }
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url('../images/header/my-library/mobile/library-banner-640x460@2x.jpg');
+      @media screen and (min-width: 768px) {
+        background-image: url('../images/header/my-library/tablet/library-banner-1536x460@2x.jpg');
+      }
+      @media screen and (min-width: 1024px) {
+        background-image: url('../images/header/my-library/desktop/library-banner-2048x460@2x.jpg');
+      }
+    }
+  }
+}
