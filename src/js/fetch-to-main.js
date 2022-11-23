@@ -17,53 +17,35 @@ fetchMovies(API_KEY);
 function start(movies) {
   for (const movie of movies.results) {
     let filmCategories = '';
-    fetchDetails(movie.id, API_KEY)
-      .then(filmDetails => {
-        /*tablica kategorii filmów*/
-        const tableOfCategories = filmDetails.genres;
-        const categories = tableOfCategories.map(category => category.name);
-        filmCategories = categories.join(', ');
-        /*zmiana formatu daty*/
-        const date = new Date(filmDetails.release_date);
-        const releaseDate = date.getFullYear();
-        console.log(releaseDate);
-        console.log(typeof releaseDate);
+    fetchDetails(movie.id, API_KEY).then(filmDetails => {
+      /*tablica kategorii filmów*/
+      const tableOfCategories = filmDetails.genres;
+      const categories = tableOfCategories.map(category => category.name);
+      filmCategories = categories.join(', ');
+      /*zmiana formatu daty*/
+      const date = new Date(filmDetails.release_date);
+      const releaseDate = date.getFullYear();
+      console.log(filmDetails);
+      console.log(typeof releaseDate);
 
-
-
-function start(fetchMovies){
-    let moviez ="";
-    movies = fetchMovies;
-    movieIndex =movies.results;
-    console.log(movies.results);
-    for (i =0; i < movieIndex.length; i++){
-        moviez += `
-        <li> 
-        <div class="movie-container">
-        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${movieIndex[i].poster_path}>
-        <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
-
-        getMovie.insertAdjacentHTML(
-          'afterbegin',
-          `
-        <li data-film="${filmDetails.id}" style="list-style-type:none;">
+      getMovie.insertAdjacentHTML(
+        'afterbegin',
+        `<li data-film="${filmDetails.id}" style="list-style-type:none;">
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
           filmDetails.poster_path
         }>
-        
+
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
         <div id="movie-info">
         <p class="movie-categories">${filmCategories} | </p>
         <p class="year-of-release">${releaseDate}</p>
         </div>
 
-
         </div>
         </li>`
-        );
-      })
-      .catch(error => console.log(error));
+      );
+    });
   }
 }
 
@@ -75,6 +57,8 @@ async function fetchDetails(filmId, API_KEY) {
     throw new Error(response.statusText);
   }
   const filmDetails = await response.json();
+  console.log(filmDetails);
   return filmDetails;
 }
+
 export { fetchMovies, start, fetchDetails, API_KEY };
