@@ -1,30 +1,62 @@
+/*działa! wersja w pętli!*/
+/*wersja najlepsza*/
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
-function fetchMovies(API_KEY) {
-  fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
-    .then(response => response.json())
-    .then(data => start(data));
+
+async function fetchMovies(API_KEY) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const data = await response.json().then(data => start(data));
 }
 fetchMovies(API_KEY);
 
-let options = '';
+function start(movies) {
+  for (const movie of movies.results) {
+    let filmCategories = '';
+    fetchDetails(movie.id, API_KEY)
+      .then(filmDetails => {
+        /*tablica kategorii filmów*/
+        const tableOfCategories = filmDetails.genres;
+        const categories = tableOfCategories.map(category => category.name);
+        filmCategories = categories.join(', ');
+        /*zmiana formatu daty*/
+        const date = new Date(filmDetails.release_date);
+        const releaseDate = date.getFullYear();
+        console.log(releaseDate);
+        console.log(typeof releaseDate);
 
-function start(fetchMovies) {
-  let moviez = '';
-  let movies = fetchMovies;
-  let movieIndex = movies.results;
-  console.log(movies.results);
-  for (let i = 0; i < movieIndex.length; i++) {
-    moviez += `
-        <li> 
+        getMovie.insertAdjacentHTML(
+          'afterbegin',
+          `
+        <li data-film="${filmDetails.id}" style="list-style-type:none;">
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
-          movieIndex[i].poster_path
+          filmDetails.poster_path
         }>
-        <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
+        <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
+        <p class="movie-categories">${filmCategories}</p>
+        <p class="year-of-release">${releaseDate}</p>
+        <p class="rating">${filmDetails.vote_average.toFixed(1)}</p>
         </div>
-        </li>`;
-    console.log(movieIndex[i].name || movieIndex[i].title);
+        </li>`
+        );
+      })
+      .catch(error => console.log(error));
   }
-  getMovie.innerHTML = moviez;
 }
+
+async function fetchDetails(filmId, API_KEY) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${filmId}?api_key=${API_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const filmDetails = await response.json();
+  return filmDetails;
+}
+export { fetchMovies, start, fetchDetails, API_KEY };
