@@ -10,6 +10,7 @@ fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
 }
 fetchMovies((API_KEY));
 
+<<<<<<< Updated upstream
 function start(fetchMovies){
     let moviez ="";
     movies = fetchMovies;
@@ -21,6 +22,22 @@ function start(fetchMovies){
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${movieIndex[i].poster_path}>
         <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
+=======
+        getMovie.insertAdjacentHTML(
+          'afterbegin',
+          `
+        <li data-film="${filmDetails.id}" style="list-style-type:none;">
+        <div class="movie-container">
+        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
+          filmDetails.poster_path
+        }>
+        
+        <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
+        <div id="movie-info">
+        <p class="movie-categories">${filmCategories} | </p>
+        <p class="year-of-release">${releaseDate}</p>
+        </div>
+>>>>>>> Stashed changes
         </div>
         </li>`
         console.log(movieIndex[i].name || movieIndex[i].title);
