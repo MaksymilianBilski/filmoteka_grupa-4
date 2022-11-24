@@ -1,8 +1,10 @@
 import { Notify } from 'notiflix';
 import * as module from './fetch-to-main';
-page = 1;
+
+let page;
 let actualPage = 1;
 
+//maintain the scroll position after page reload
 window.addEventListener('scroll', handleScroll);
 
 function handleScroll(evt) {
@@ -12,9 +14,18 @@ function handleScroll(evt) {
 
 window.addEventListener('DOMContentLoaded', () => {
   const y = sessionStorage.getItem('SCROLLPOS') || 0;
-  setTimeout(() => {
-    window.scroll({ top: y, x: 0 });
-  }, 10);
+  //if timeDifference has original value
+  if (module.timeDifference >= 1000) {
+    setTimeout(() => {
+      window.scroll({ top: y, x: 0, behavior: 'smooth' });
+    }, module.timeDifference / 10);
+  }
+  //if timeDifference has proper value
+  if (module.timeDifference <= 1000) {
+    setTimeout(() => {
+      window.scroll({ top: y, x: 0, behavior: 'smooth' });
+    }, module.timeDifference);
+  }
 });
 
 let getMovie = document.getElementById(`movie-list`);
@@ -73,8 +84,22 @@ svgR.addEventListener('click', () => {
   pageForward();
 });
 
-startState();
-stylesAndListeners();
+// making start state of pagination after the timeDifference
+const makeStartPagination = () => {
+  if (module.timeDifference >= 1000) {
+    return setTimeout(() => {
+      startState();
+      stylesAndListeners();
+    }, module.timeDifference / 10);
+  }
+  if (module.timeDifference <= 1000) {
+    return setTimeout(() => {
+      startState();
+      stylesAndListeners();
+    }, module.timeDifference);
+  }
+};
+makeStartPagination();
 
 // loop for adding styles and event listeners
 function stylesAndListeners() {
@@ -147,7 +172,7 @@ function pageForward() {
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
   // creating the last 5 pages
-  for (let i = totalPages - 4; i <= module.totalPages; i++) {
+  for (let i = module.totalPages - 4; i <= module.totalPages; i++) {
     pagination.insertAdjacentHTML(
       'beforeend',
       `<button class="pagination-button">${i}</button>`
@@ -171,7 +196,7 @@ function pageForward() {
 }
 
 //moving all pages backward
-function pageBackward() {
+async function pageBackward() {
   // setting page and actual page to 1
   page = actualPage = 1;
   pagination.innerHTML = '';
@@ -290,16 +315,28 @@ function changeBtn(e) {
   if (e.target.nodeName === 'SPAN') {
     return;
   }
+  if (e.target.textContent === page) {
+    console.log(page);
+    return;
+  }
   // } //if there are some buttons, do a loop and add event listeners + styles
   else if (pagination.children.length > 0) {
     getMovie.innerHTML = '';
     module.fetchMovies(module.API_KEY + `&page=${page}`);
     stylesAndListeners();
-    const y = sessionStorage.getItem('SCROLLPOS');
-    setTimeout(() => {
-      window.scroll({ top: y, x: 0, behavior: 'smooth' });
-    }, 250);
-  } else return;
+    //after page change set the scroll position to the bottom of the page
+    const posY = sessionStorage.getItem('SCROLLPOS');
+    if (module.timeDifference >= 1000) {
+      setTimeout(() => {
+        window.scroll({ top: posY, x: 0, behavior: 'smooth' });
+      }, module.timeDifference / 10);
+    }
+    if (module.timeDifference <= 1000) {
+      setTimeout(() => {
+        window.scroll({ top: posY, x: 0, behavior: 'smooth' });
+      }, module.timeDifference * 10);
+    }
+  }
 }
 
 pagination.addEventListener('click', changeBtn);
@@ -314,11 +351,9 @@ function testBtn() {
 testBtn();
 const tBtn = document.querySelector('.test');
 tBtn.addEventListener('click', () => {
-  let currentPage = actualPage;
-  let pageExport = page;
-  Notify.info('current page = ' + `${currentPage}`);
-  Notify.info('page to export = ' + `${pageExport}`);
+  Notify.info('current page = ' + `${actualPage}`);
+  Notify.info('total pages = ' + `${module.totalPages}`);
+  Notify.info('time difference = ' + `${module.timeDifference}`);
   console.log(sessionStorage.getItem('SCROLLPOS'));
 });
-
 // export { page };

@@ -3,8 +3,12 @@
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
 let totalPages;
+let time1;
+let time2;
+let timeDifference = 1000;
 
 async function fetchMovies(API_KEY) {
+  time1 = new Date().getTime();
   const response = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
   );
@@ -12,9 +16,10 @@ async function fetchMovies(API_KEY) {
     throw new Error(response.statusText);
   }
   const data = await response.json().then(data => start(data));
+  time2 = new Date().getTime();
+  timeDifference = time2 - time1;
 }
 fetchMovies(API_KEY);
-
 function start(movies) {
   for (const movie of movies.results) {
     totalPages = movies.total_pages;
@@ -62,4 +67,11 @@ async function fetchDetails(filmId, API_KEY) {
   return filmDetails;
 }
 
-export { fetchMovies, start, fetchDetails, API_KEY, totalPages };
+export {
+  fetchMovies,
+  start,
+  fetchDetails,
+  API_KEY,
+  totalPages,
+  timeDifference,
+};
