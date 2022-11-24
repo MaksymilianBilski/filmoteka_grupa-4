@@ -1,4 +1,5 @@
 #movie-list{
+<<<<<<< Updated upstream
     display:grid;
     grid-template-columns: auto auto auto;
   }
@@ -7,10 +8,108 @@
   }
   .movie-container{
   
+=======
+  display:grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 30px;    
+}
+.movie-title{
+  color: var(--brand-color);
+  padding-left:0px;
+  font-weight: 600;
+}
+.movie-container{
+
+}
+
+.movie-image{
+  border-radius:5px;
+  width: 274px;
+  height: 398px;
+  margin-bottom:10px;
+}
+
+#movie-info{
+  line-height:1,16em;
+  display:flex;
+  font-size:12px;
+  color: var(--text-color-2);
+  font-weight: 600;
+  margin-bottom:31px;
+  flex-direction:row;
+}
+
+.movie-box{
+  display:grid;
+  justify-content: center;
+  
+}
+
+
+@media (min-width: 280px) {
+  #movie-list{
+      display:grid;
+      grid-template-columns: auto;
+      justify-content: center;
+
+  .movie-image{
+          border-radius:5px;
+          max-width: 280px;
+          height: 398px;
+        }
+  #movie-info{
+    max-width: 280px;
+  }        
+  .movie-title{
+    max-width: 280px;
+  }       
+    }
+>>>>>>> Stashed changes
   }
   
+<<<<<<< Updated upstream
   .movie-image{
     border-radius:5px;
     width: 274px;
     height: 398px;
   }
+=======
+@media (min-width: 768px) {
+  #movie-list{
+      display:grid;
+      grid-template-columns: auto auto;
+
+      .movie-image{
+          border-radius:5px;
+          max-width: 293x;
+          height: 398px;
+        }  
+      #movie-info{
+        max-width: 293px;}       
+    }
+    .movie-title{
+      max-width: 293px;
+    }       
+}
+
+
+@media (min-width: 1024px) {
+  #movie-list{
+      display:grid;
+      grid-template-columns: auto auto auto;
+
+      .movie-image{
+          border-radius:5px;
+          max-width: 274px;
+          height: 398px;
+        } 
+      #movie-info{
+        max-width:274px;
+      }    
+      .movie-title{
+        max-width: 274px;
+      }       
+    }
+}
+
+>>>>>>> Stashed changes
