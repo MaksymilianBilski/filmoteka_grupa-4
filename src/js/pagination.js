@@ -1,20 +1,31 @@
-// import { page, renderPost, totalPages } from '';
 import { Notify } from 'notiflix';
 import * as module from './fetch-to-main';
-let page = 1;
-let totalPages = 100;
+
+let page;
 let actualPage = 1;
+
+//maintain the scroll position after page reload
+window.addEventListener('scroll', handleScroll);
 
 function handleScroll(evt) {
   const scrollPos = evt.path[1].pageYOffset;
-  window.sessionStorage.setItem('STORAGE_KEY', scrollPos);
+  window.sessionStorage.setItem('SCROLLPOS', scrollPos);
 }
-document.addEventListener('scroll', handleScroll);
 
-document.addEventListener('refresh', () => {
-  const y = sessionStorage.getItem('STORAGE_KEY') || 0;
-  console.log(y);
-  window.scroll({ top: y });
+window.addEventListener('DOMContentLoaded', () => {
+  const y = sessionStorage.getItem('SCROLLPOS') || 0;
+  //if timeDifference has original value
+  if (module.timeDifference >= 1000) {
+    setTimeout(() => {
+      window.scroll({ top: y, x: 0 });
+    }, module.timeDifference / 10);
+  }
+  //if timeDifference has proper value
+  if (module.timeDifference <= 1000) {
+    setTimeout(() => {
+      window.scroll({ top: y, x: 0 });
+    }, module.timeDifference);
+  }
 });
 
 let getMovie = document.getElementById(`movie-list`);
@@ -73,8 +84,22 @@ svgR.addEventListener('click', () => {
   pageForward();
 });
 
-startState();
-stylesAndListeners();
+// making start state of pagination after the timeDifference
+const makeStartPagination = () => {
+  if (module.timeDifference >= 1000) {
+    return setTimeout(() => {
+      startState();
+      stylesAndListeners();
+    }, module.timeDifference / 10);
+  }
+  if (module.timeDifference <= 1000) {
+    return setTimeout(() => {
+      startState();
+      stylesAndListeners();
+    }, module.timeDifference);
+  }
+};
+makeStartPagination();
 
 // loop for adding styles and event listeners
 function stylesAndListeners() {
@@ -127,7 +152,10 @@ function startState() {
     'beforeend',
     `<span class="end-dots">...</span>`
   );
-  pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
+  pagination.insertAdjacentHTML(
+    'beforeend',
+    `<button>${module.totalPages}</button>`
+  );
   //creating frist 5 pages
   for (let i = 5; i >= 1; i--) {
     pagination.insertAdjacentHTML(
@@ -139,14 +167,12 @@ function startState() {
 
 //moving all pages forward
 function pageForward() {
-  getMovie.innerHTML = '';
   // set the page and actualPage for last page
-  actualPage = page = totalPages;
-  module.fetchMovies(module.API_KEY + `&page=${page}`);
+  actualPage = page = module.totalPages;
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
   // creating the last 5 pages
-  for (let i = totalPages - 4; i <= totalPages; i++) {
+  for (let i = module.totalPages - 4; i <= module.totalPages; i++) {
     pagination.insertAdjacentHTML(
       'beforeend',
       `<button class="pagination-button">${i}</button>`
@@ -170,8 +196,7 @@ function pageForward() {
 }
 
 //moving all pages backward
-function pageBackward() {
-  getMovie.innerHTML = '';
+async function pageBackward() {
   // setting page and actual page to 1
   page = actualPage = 1;
   pagination.innerHTML = '';
@@ -196,12 +221,9 @@ function pageBackward() {
   );
   pagination.insertAdjacentHTML(
     'beforeend',
-    `<button class="pagination-button" style="background-color: transparent; border: none;">${totalPages}</button>`
+    `<button class="pagination-button" style="background-color: transparent; border: none;">${module.totalPages}</button>`
   );
   stylesAndListeners();
-  module.fetchMovies(module.API_KEY + `&page=${page}`);
-  console.log(getMovie.children.length);
-  getMovie.innerHTML = '';
 }
 
 function buttonClick(e) {
@@ -210,12 +232,12 @@ function buttonClick(e) {
     return;
   }
   //setting page number to clicked button
+
   page = actualPage = e.target.textContent;
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
-
   // condition for dynamic creating pages in middle state
-  if (actualPage >= 4 && actualPage <= totalPages - 4) {
+  if (actualPage >= 4 && actualPage <= module.totalPages - 4) {
     arrowLeft.style.visibility = 'visible';
     arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
@@ -227,7 +249,7 @@ function buttonClick(e) {
     // //dots and last page if actual page is not higher than total pages-4
     pagination.insertAdjacentHTML(
       'afterbegin',
-      `<button class="pagination-button">${totalPages}</button>`
+      `<button class="pagination-button">${module.totalPages}</button>`
     );
     pagination.insertAdjacentHTML(
       'afterbegin',
@@ -244,7 +266,7 @@ function buttonClick(e) {
     arrowLeft.style.visibility = 'hidden';
   }
   //hide right arrow
-  if (actualPage >= totalPages - 3) {
+  if (actualPage >= module.totalPages - 3) {
     arrowRight.style.transition = 'all 250ms';
     arrowRight.style.visibility = 'hidden';
   }
@@ -256,7 +278,8 @@ function buttonClick(e) {
       return (page = actualPage = e.currentTarget.textContent);
     }
     // last 5 pages condition
-    if (Number(actualPage) >= totalPages - 3) {
+    if (Number(actualPage) >= module.totalPages - 3) {
+      pageForward();
       return (page = actualPage = e.currentTarget.textContent);
     }
     pagination.insertAdjacentHTML(
@@ -297,7 +320,19 @@ function changeBtn(e) {
     getMovie.innerHTML = '';
     module.fetchMovies(module.API_KEY + `&page=${page}`);
     stylesAndListeners();
-  } else return;
+    //after page change set the scroll position to the bottom of the page
+    const posY = sessionStorage.getItem('SCROLLPOS');
+    if (module.timeDifference >= 1000) {
+      setTimeout(() => {
+        window.scroll({ top: posY, x: 0, behavior: 'smooth' });
+      }, module.timeDifference / 10);
+    }
+    if (module.timeDifference <= 1000) {
+      setTimeout(() => {
+        window.scroll({ top: posY, x: 0, behavior: 'smooth' });
+      }, module.timeDifference * 10);
+    }
+  }
 }
 
 pagination.addEventListener('click', changeBtn);
@@ -312,10 +347,9 @@ function testBtn() {
 testBtn();
 const tBtn = document.querySelector('.test');
 tBtn.addEventListener('click', () => {
-  let currentPage = actualPage;
-  let pageExport = page;
-  Notify.info('current page = ' + `${currentPage}`);
-  Notify.info('page to export = ' + `${pageExport}`);
-  Notify.info('amount of fetched movies' + getMovie.children.length);
+  Notify.info('current page = ' + `${actualPage}`);
+  Notify.info('total pages = ' + `${module.totalPages}`);
+  Notify.info('time difference = ' + `${module.timeDifference}`);
+  console.log(sessionStorage.getItem('SCROLLPOS'));
 });
 // export { page };
