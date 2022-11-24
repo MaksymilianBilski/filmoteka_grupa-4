@@ -17,13 +17,13 @@ window.addEventListener('DOMContentLoaded', () => {
   //if timeDifference has original value
   if (module.timeDifference >= 1000) {
     setTimeout(() => {
-      window.scroll({ top: y, x: 0, behavior: 'smooth' });
+      window.scroll({ top: y, x: 0 });
     }, module.timeDifference / 10);
   }
   //if timeDifference has proper value
   if (module.timeDifference <= 1000) {
     setTimeout(() => {
-      window.scroll({ top: y, x: 0, behavior: 'smooth' });
+      window.scroll({ top: y, x: 0 });
     }, module.timeDifference);
   }
 });
@@ -313,10 +313,6 @@ function changeBtn(e) {
     return;
   }
   if (e.target.nodeName === 'SPAN') {
-    return;
-  }
-  if (e.target.textContent === page) {
-    console.log(page);
     return;
   }
   // } //if there are some buttons, do a loop and add event listeners + styles

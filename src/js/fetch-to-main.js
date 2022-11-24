@@ -2,6 +2,7 @@
 /*wersja najlepsza*/
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
+//for pagination: amount of all pages, and time needed to fetch one page(timeDifference)
 let totalPages;
 let time1;
 let time2;
