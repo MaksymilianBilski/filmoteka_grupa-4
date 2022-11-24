@@ -1,1 +1,33 @@
-<header>header</header>
+<header class="header">
+  <div class="header-section">
+    <!-- MAIN NAVIGATION -->
+    <nav class="header-nav">
+      <a href="index.html" class="link logo">
+        <svg class="icon icon__logo" height="24px" width="24px">
+          <use href="./images/sprite/sprite.svg#icon-film-tape"></use>
+        </svg>
+        <h1 class="logo__title">filmoteka</h1>
+      </a>
+      <ul class="header-nav">
+        <li class="header-nav__item">
+          <a href="index.html" class="home">home</a>
+        </li>
+        <li class="header-nav__item">
+          <a href="library.html" class="library">my library</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- SEARCH FORM -->
+    <div class="header-form">
+      <input
+        type="text"
+        class="form-input"
+        placeholder="Enter a movie name"
+        id="form-input"
+      />
+      <svg class="icon icon__search" height="12px" width="12px">
+        <use href="./images/sprite/sprite.svg#icon-search"></use>
+      </svg>
+    </div>
+  </div>
+</header>
