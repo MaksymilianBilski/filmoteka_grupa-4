@@ -1,20 +1,20 @@
-// import { page, renderPost, totalPages } from '';
 import { Notify } from 'notiflix';
 import * as module from './fetch-to-main';
-let page = 1;
-let totalPages = 100;
+page = 1;
 let actualPage = 1;
+
+window.addEventListener('scroll', handleScroll);
 
 function handleScroll(evt) {
   const scrollPos = evt.path[1].pageYOffset;
-  window.sessionStorage.setItem('STORAGE_KEY', scrollPos);
+  window.sessionStorage.setItem('SCROLLPOS', scrollPos);
 }
-document.addEventListener('scroll', handleScroll);
 
-document.addEventListener('refresh', () => {
-  const y = sessionStorage.getItem('STORAGE_KEY') || 0;
-  console.log(y);
-  window.scroll({ top: y });
+window.addEventListener('DOMContentLoaded', () => {
+  const y = sessionStorage.getItem('SCROLLPOS') || 0;
+  setTimeout(() => {
+    window.scroll({ top: y, x: 0 });
+  }, 10);
 });
 
 let getMovie = document.getElementById(`movie-list`);
@@ -127,7 +127,10 @@ function startState() {
     'beforeend',
     `<span class="end-dots">...</span>`
   );
-  pagination.insertAdjacentHTML('beforeend', `<button>${totalPages}</button>`);
+  pagination.insertAdjacentHTML(
+    'beforeend',
+    `<button>${module.totalPages}</button>`
+  );
   //creating frist 5 pages
   for (let i = 5; i >= 1; i--) {
     pagination.insertAdjacentHTML(
@@ -140,11 +143,11 @@ function startState() {
 //moving all pages forward
 function pageForward() {
   // set the page and actualPage for last page
-  actualPage = page = totalPages;
+  actualPage = page = module.totalPages;
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
   // creating the last 5 pages
-  for (let i = totalPages - 4; i <= totalPages; i++) {
+  for (let i = totalPages - 4; i <= module.totalPages; i++) {
     pagination.insertAdjacentHTML(
       'beforeend',
       `<button class="pagination-button">${i}</button>`
@@ -193,7 +196,7 @@ function pageBackward() {
   );
   pagination.insertAdjacentHTML(
     'beforeend',
-    `<button class="pagination-button" style="background-color: transparent; border: none;">${totalPages}</button>`
+    `<button class="pagination-button" style="background-color: transparent; border: none;">${module.totalPages}</button>`
   );
   stylesAndListeners();
 }
@@ -209,7 +212,7 @@ function buttonClick(e) {
   pagination.innerHTML = '';
   startPageDots.innerHTML = '';
   // condition for dynamic creating pages in middle state
-  if (actualPage >= 4 && actualPage <= totalPages - 4) {
+  if (actualPage >= 4 && actualPage <= module.totalPages - 4) {
     arrowLeft.style.visibility = 'visible';
     arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
@@ -221,7 +224,7 @@ function buttonClick(e) {
     // //dots and last page if actual page is not higher than total pages-4
     pagination.insertAdjacentHTML(
       'afterbegin',
-      `<button class="pagination-button">${totalPages}</button>`
+      `<button class="pagination-button">${module.totalPages}</button>`
     );
     pagination.insertAdjacentHTML(
       'afterbegin',
@@ -238,7 +241,7 @@ function buttonClick(e) {
     arrowLeft.style.visibility = 'hidden';
   }
   //hide right arrow
-  if (actualPage >= totalPages - 3) {
+  if (actualPage >= module.totalPages - 3) {
     arrowRight.style.transition = 'all 250ms';
     arrowRight.style.visibility = 'hidden';
   }
@@ -250,7 +253,7 @@ function buttonClick(e) {
       return (page = actualPage = e.currentTarget.textContent);
     }
     // last 5 pages condition
-    if (Number(actualPage) >= totalPages - 3) {
+    if (Number(actualPage) >= module.totalPages - 3) {
       pageForward();
       return (page = actualPage = e.currentTarget.textContent);
     }
@@ -292,6 +295,10 @@ function changeBtn(e) {
     getMovie.innerHTML = '';
     module.fetchMovies(module.API_KEY + `&page=${page}`);
     stylesAndListeners();
+    const y = sessionStorage.getItem('SCROLLPOS');
+    setTimeout(() => {
+      window.scroll({ top: y, x: 0, behavior: 'smooth' });
+    }, 250);
   } else return;
 }
 
@@ -311,5 +318,7 @@ tBtn.addEventListener('click', () => {
   let pageExport = page;
   Notify.info('current page = ' + `${currentPage}`);
   Notify.info('page to export = ' + `${pageExport}`);
+  console.log(sessionStorage.getItem('SCROLLPOS'));
 });
+
 // export { page };

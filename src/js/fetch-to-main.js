@@ -2,6 +2,7 @@
 /*wersja najlepsza*/
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
+let totalPages;
 
 async function fetchMovies(API_KEY) {
   const response = await fetch(
@@ -16,6 +17,7 @@ fetchMovies(API_KEY);
 
 function start(movies) {
   for (const movie of movies.results) {
+    totalPages = movies.total_pages;
     let filmCategories = '';
     fetchDetails(movie.id, API_KEY).then(filmDetails => {
       /*tablica kategorii filmów*/
@@ -60,4 +62,4 @@ async function fetchDetails(filmId, API_KEY) {
   return filmDetails;
 }
 
-export { fetchMovies, start, fetchDetails, API_KEY };
+export { fetchMovies, start, fetchDetails, API_KEY, totalPages };
