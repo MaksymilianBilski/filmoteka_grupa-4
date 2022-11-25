@@ -43,13 +43,17 @@ function start(movies) {
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
           filmDetails.poster_path
         }>
+<<<<<<< Updated upstream
+        <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
+=======
 
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
         <div id="movie-info">
-        <p class="movie-categories">${filmCategories} | </p>
-        <p class="year-of-release">${releaseDate}</p>
+        <p class="movie-categories">${filmCategories} </p>
+        <p class="year-of-release">|${releaseDate}</p>
         </div>
 
+>>>>>>> Stashed changes
         </div>
         </li>`
       );
