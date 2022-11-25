@@ -1,5 +1,7 @@
 /*działa! wersja w pętli!*/
 /*wersja najlepsza*/
+import { Spinner } from 'spin.js';
+import { opts } from './asynchronic-loader-opts';
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
 //for pagination: amount of all pages, and time needed to fetch one page(timeDifference)
@@ -17,13 +19,18 @@ fetchMovies(API_KEY);
 
 async function fetchMovies(API_KEY) {
   time1 = new Date().getTime();
+  const spinner = new Spinner(opts).spin(getMovie);
   const response = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
   );
+
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-  const data = await response.json().then(data => start(data));
+  const data = await response.json().then(data => {
+    start(data);
+  });
+  spinner.stop();
   time2 = new Date().getTime();
   timeDifference = time2 - time1;
 }
@@ -55,7 +62,6 @@ function start(movies) {
         <p class="movie-categories">${filmCategories} | </p>
         <p class="year-of-release">${releaseDate}</p>
         </div>
-
         </div>
         </li>`
       );
