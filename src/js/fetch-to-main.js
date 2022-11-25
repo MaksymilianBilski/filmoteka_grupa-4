@@ -3,7 +3,7 @@
 import { async } from 'regenerator-runtime';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
-import { movieListener } from './modal';
+
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
 //for pagination: amount of all pages, and time needed to fetch one page(timeDifference)
@@ -48,7 +48,7 @@ async function fetchMovies(API_KEY) {
 
       getMovie.insertAdjacentHTML(
         'afterbegin',
-        `<li data-modal-open data-film="${filmDetails.id}" style="list-style-type:none;">
+        `<li  data-film="${filmDetails.id}" style="list-style-type:none;">
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
           filmDetails.poster_path || filmDetails.poster_path

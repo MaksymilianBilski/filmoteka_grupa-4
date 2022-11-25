@@ -1,5 +1,4 @@
 
-function movieListener(){
 (() => {
   const refs = {
     openModalBtn: document.querySelectorAll('[data-modal-open]'),
@@ -14,9 +13,9 @@ function movieListener(){
     refs.modal.classList.toggle('is-hidden');
   }
 
-  refs.modal.addEventListener('click', () => {
-    refs.modal.classList.add('is-hidden');
-  });
+  // refs.modal.addEventListener('click', () => {
+  //   refs.modal.classList.add('is-hidden');
+  // });
 
   refs.closeModalBtn.addEventListener('click', () => {
     refs.modal.classList.add('is-hidden');
@@ -31,7 +30,3 @@ function movieListener(){
 })();
 
 document.removeEventListener('click', {});
-}
-export{
-  movieListener
-}
