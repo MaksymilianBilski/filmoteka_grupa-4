@@ -49,11 +49,11 @@ function changePaginationView() {
     }
   }
   if (window.innerWidth > 767) {
-    startPageDots.style.display = 'block';
+    startPageDots.style.display = 'flex';
     lastPage.style.display = 'block';
     endPageDots.style.display = 'flex';
     if (beginingDots !== undefined) {
-      beginingDots.style.display = 'block';
+      beginingDots.style.display = 'flex';
     }
   }
 }
