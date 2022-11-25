@@ -77,9 +77,9 @@
 
 
 @media (min-width: 1024px) {
-  #movie-list{
-      display:grid;
-      grid-template-columns: auto auto auto;
+  #movie-list {
+    display: grid;
+    grid-template-columns: auto auto auto;
 
       .movie-image{
           border-radius:5px;
@@ -93,5 +93,6 @@
         max-width: 274px;
       }       
     }
+  }
 }
 

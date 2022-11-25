@@ -41,7 +41,7 @@ function start(movies) {
         `<li data-film="${filmDetails.id}" style="list-style-type:none;">
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
-          filmDetails.poster_path
+          filmDetails.poster_path || filmDetails.poster_path
         }>
 
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
