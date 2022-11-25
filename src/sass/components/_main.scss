@@ -1,15 +1,5 @@
 
 #movie-list{
-<<<<<<< Updated upstream
-    display:grid;
-    grid-template-columns: auto auto auto;
-  }
-  .movie-title{
-    padding-left:25px;
-  }
-  .movie-container{
-  
-=======
   display:grid;
   grid-template-columns: auto auto auto;
   grid-column-gap: 30px;    
@@ -65,19 +55,8 @@
     max-width: 280px;
   }       
     }
->>>>>>> Stashed changes
   }
   
-<<<<<<< Updated upstream
-  .movie-image{
-          border-radius:5px;
-          max-width: 280px;
-          height: 398px;
-        }
-         
-    }
-  }
-=======
 @media (min-width: 768px) {
   #movie-list{
       display:grid;
@@ -116,4 +95,3 @@
     }
 }
 
->>>>>>> Stashed changes
