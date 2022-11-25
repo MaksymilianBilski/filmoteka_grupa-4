@@ -57,10 +57,7 @@ function start(fetchMovies) {
     moviez += `
         <li> 
         <div class="movie-container">
-        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
-
-          movieIndex[i].poster_path
-        }>
+        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${movieIndex[i].poster_path}>
 
         <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
 
@@ -79,8 +76,8 @@ function start(fetchMovies) {
         </div>
         </li>`
       );
-    });
-  }
+    };
+}
 
 
 async function fetchDetails(filmId, API_KEY) {
