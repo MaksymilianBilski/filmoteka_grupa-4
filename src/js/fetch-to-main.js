@@ -1,17 +1,25 @@
 /*działa! wersja w pętli!*/
 /*wersja najlepsza*/
+import { Spinner } from 'spin.js';
+import { opts } from './asynchronic-loader-opts';
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
 
 async function fetchMovies(API_KEY) {
+  const spinner = new Spinner(opts).spin(getMovie);
   const response = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
   );
+
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-  const data = await response.json().then(data => start(data));
+  const data = await response.json().then(data => {
+    start(data);
+  });
+  spinner.stop();
 }
+
 fetchMovies(API_KEY);
 
 function start(movies) {
@@ -41,7 +49,6 @@ function start(movies) {
         <p class="movie-categories">${filmCategories} | </p>
         <p class="year-of-release">${releaseDate}</p>
         </div>
-
         </div>
         </li>`
       );
