@@ -3,31 +3,36 @@
     <!-- MAIN NAVIGATION -->
     <nav class="header-nav">
       <a href="index.html" class="link logo">
-        <svg class="icon icon__logo" height="24px" width="24px">
+        <svg class="icon logo__icon" height="24px" width="24px">
           <use href="./images/sprite/sprite.svg#icon-film-tape"></use>
         </svg>
         <h1 class="logo__title">filmoteka</h1>
       </a>
-      <ul class="header-nav">
-        <li class="header-nav__item">
-          <a href="index.html" class="home">home</a>
+      <ul class="header-list">
+        <li class="header-list__item">
+          <a href="index.html" class="home header--current-site">home</a>
         </li>
-        <li class="header-nav__item">
+        <li class="header-list__item">
           <a href="library.html" class="library">my library</a>
         </li>
       </ul>
     </nav>
     <!-- SEARCH FORM -->
     <div class="header-form">
-      <input
+      <form class="search-form" id="search-form">
+        <input
         type="text"
-        class="form-input"
-        placeholder="Enter a movie name"
+        class="search-form__input"
+        placeholder="Please enter a movie title"
         id="form-input"
-      />
-      <svg class="icon icon__search" height="12px" width="12px">
-        <use href="./images/sprite/sprite.svg#icon-search"></use>
-      </svg>
+        autocomplete="off"
+        />
+        <button class="search-form__button">
+          <svg class="icon search-form__icon" height="12px" width="12px">
+            <use href="./images/sprite/sprite.svg#icon-search"></use>
+          </svg>
+        </button>
+      </form>
     </div>
   </div>
 </header>
