@@ -65,6 +65,9 @@ window.addEventListener('resize', changePaginationView);
 window.addEventListener('scroll', handleScroll);
 
 function handleScroll(evt) {
+  if (evt.path === undefined) {
+    return;
+  }
   const scrollPos = evt.path[1].pageYOffset;
   window.sessionStorage.setItem('SCROLLPOS', scrollPos);
 }
