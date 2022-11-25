@@ -28,7 +28,7 @@
         border-radius: 5px;
 
         &:hover {
-            background-color: $button-border-color;
+            background-color: var(--button-border-color);
         }
     }
 }

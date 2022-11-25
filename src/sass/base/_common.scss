@@ -14,7 +14,7 @@ a {
 
 body {
   font-family: 'Roboto', 'Verdana', 'Tahoma', sans-serif;
-  color: $brand-color;
+  color: var(--brand-color);
   font-size: 12px;
   font-weight: 500;
 }
