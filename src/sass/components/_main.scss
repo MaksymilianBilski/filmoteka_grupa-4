@@ -27,6 +27,7 @@
   color: var(--text-color-2);
   font-weight: 600;
   margin-bottom:31px;
+  flex-direction:row;
 }
 
 .movie-box{
@@ -47,10 +48,14 @@
           max-width: 280px;
           height: 398px;
         }
-         
+  #movie-info{
+    max-width: 280px;
+  }        
+  .movie-title{
+    max-width: 280px;
+  }       
     }
   }
-
   
 @media (min-width: 768px) {
   #movie-list{
@@ -59,10 +64,15 @@
 
       .movie-image{
           border-radius:5px;
-          max-width: 294px;
+          max-width: 293x;
           height: 398px;
-        }         
+        }  
+      #movie-info{
+        max-width: 293px;}       
     }
+    .movie-title{
+      max-width: 293px;
+    }       
 }
 
 
@@ -73,9 +83,15 @@
 
       .movie-image{
           border-radius:5px;
-          max-width: 294px;
+          max-width: 274px;
           height: 398px;
-        }            
+        } 
+      #movie-info{
+        max-width:274px;
+      }    
+      .movie-title{
+        max-width: 274px;
+      }       
     }
 }
 
