@@ -5,7 +5,8 @@
   "homepage": "https://maksymilianbilski.github.io/filmoteka_grupa-4/",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /filmoteka_grupa-4/"
+    "build": "parcel build src/*.html --public-url /filmoteka_grupa-4/",
+    "start": "parcel src/*.html"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.5",
     "regenerator-runtime": "^0.13.10",
-    "spin.js": "^4.1.1"
+    "spin.js": "^4.1.1",
+    "spiner": "^1.0.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
