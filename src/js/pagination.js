@@ -4,16 +4,57 @@ import * as module from './fetch-to-main';
 let page;
 let actualPage = 1;
 
+//values that will have setted amount further in functions
+let endPageDots;
+let lastPage;
+let beginingDots;
+let getMovie = document.getElementById(`movie-list`);
+const pagination = document.querySelector('.pagination');
+const paginationBox = document.querySelector('.pagination-box');
+const startPageDots = document.querySelector('.start-page-dots');
+const arrowLeft = document.querySelector('.arrow-left');
+const arrowRight = document.querySelector('.arrow-right');
+
+const svgR = document.querySelector('.svg-right');
+const svgL = document.querySelector('.svg-left');
+
+//pagination mobile view
 function changePaginationView() {
   if (window.innerWidth <= 767) {
     startPageDots.style.display = 'none';
     lastPage.style.display = 'none';
     endPageDots.style.display = 'none';
+    if (beginingDots !== undefined) {
+      beginingDots.style.display = 'none';
+    }
+    //hide first page if actualPage is more than 4
+    if (actualPage >= 4) {
+      if (pagination.children[0] === undefined) {
+        return;
+      }
+      if (pagination.children[0].textContent === '1') {
+        pagination.children[0].style.display = 'none';
+      }
+    }
+    //hide last page if there is no lastPage - 1 seen
+    if (actualPage <= module.totalPages - 4) {
+      if (
+        Number(
+          pagination.children[pagination.children.length - 1].textContent
+        ) === module.totalPages
+      ) {
+        pagination.children[pagination.children.length - 1].style.display =
+          'none';
+      }
+    }
   }
   if (window.innerWidth > 767) {
     startPageDots.style.display = 'block';
     lastPage.style.display = 'block';
     endPageDots.style.display = 'flex';
+    if (beginingDots !== undefined) {
+      beginingDots.style.display = 'block';
+    }
   }
 }
 // change the pagination view
@@ -43,17 +84,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }, module.timeDifference);
   }
 });
-let endPageDots;
-let lastPage;
-let getMovie = document.getElementById(`movie-list`);
-const pagination = document.querySelector('.pagination');
-const paginationBox = document.querySelector('.pagination-box');
-const startPageDots = document.querySelector('.start-page-dots');
-const arrowLeft = document.querySelector('.arrow-left');
-const arrowRight = document.querySelector('.arrow-right');
-
-const svgR = document.querySelector('.svg-right');
-const svgL = document.querySelector('.svg-left');
 
 //geometric for whole pagination
 startPageDots.style.display = 'flex';
@@ -156,6 +186,7 @@ function stylesAndListeners() {
       pagination.children[i].style.marginLeft = '4px';
       pagination.children[i].style.marginRight = '4px';
       pagination.children[i].style.border = 'none';
+      changePaginationView();
     }
     //click events on buttons
     pagination.children[i].addEventListener('click', buttonClick);
@@ -181,6 +212,7 @@ function startState() {
       `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
     );
   }
+  lastPage = document.querySelector('.last-page');
   endPageDots = document.querySelector('.end-dots');
 }
 
@@ -211,7 +243,9 @@ function pageForward() {
     'afterbegin',
     `<button class="pagination-button">${1}</button>`
   );
+  beginingDots = document.querySelector('.begining-dots');
   stylesAndListeners();
+  changePaginationView();
 }
 
 //moving all pages backward
@@ -245,6 +279,7 @@ async function pageBackward() {
   stylesAndListeners();
   endPageDots = document.querySelector('.end-dots');
   lastPage = document.querySelector('.last-page');
+  changePaginationView();
 }
 
 function buttonClick(e) {
@@ -295,6 +330,7 @@ function buttonClick(e) {
   if (actualPage >= module.totalPages - 3) {
     arrowRight.style.transition = 'all 250ms';
     arrowRight.style.visibility = 'hidden';
+    changePaginationView();
   }
   //loop for dynamic creating first 5 pages, and last 5 pages
   for (let i = Number(actualPage) + 2; i >= Number(actualPage) - 2; i--) {
@@ -338,14 +374,14 @@ function changeBtn(e) {
   if (e.target.nodeName === 'DIV') {
     return;
   }
-  if (e.target.nodeName === 'SPAN') {
-    return;
-  }
   if (
     e.target.nodeName === 'SPAN' &&
     !e.target.classList.contains('begining-dots')
   ) {
     return Notify.info(`${module.totalPages - actualPage}` + ' pages left');
+  }
+  if (e.target.nodeName === 'SPAN') {
+    return;
   }
   // } //if there are some buttons, do a loop and add event listeners + styles
   else if (pagination.children.length > 0) {
