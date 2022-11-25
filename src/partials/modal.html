@@ -1,43 +1,43 @@
-
-<div style="background-color: red; width:100px; height: 100px" class="modal__container">
-        <button type='button' class='modal__button-close' data-id='close'>
+<div class="modal is-hidden" data-modal>
+    <div class="modal__container">
+        <button type='button' class='modal__button-close' data-modal-close>
             <img class='modal__icon-close' href="/src/images/modal/close.svg">
         </button>
-    <!-- <div class="modal__image">
-        <img src="" alt="">
-    </div> -->
-    <div class="modal__description">
-        <h1 class="modal__description-title"></h1>
-        <div class="modal__description-block">
-            <ul class="modal__list-left">
-                <li class="modal__item-left">Vote / Votes</li>
-                <li class="modal__item-left">Popularity</li>
-                <li class="modal__item-left">Original title</li>
-                <li class="modal__item-left">Genre</li>
-            </ul>
-            <ul class="modal__list-right">
-                <li class="modal__item-right">
-                    <span class="movie__rating"></span> 
-                    
-                </li>
-                <li class="modal__item-right">
-                    
-                </li>
-                <li class="modal__item-right">
-                    
-                </li>
-                <li class="modal__item-right">
-                    
-                </li>
-            </ul>
+        <div class="modal__description">
+            <h1 class="modal__description-title"></h1>
+            <div class="modal__description-block">
+                <ul class="modal__list-left">
+                    <li class="modal__item-left">Vote / Votes</li>
+                    <li class="modal__item-left">Popularity</li>
+                    <li class="modal__item-left">Original title</li>
+                    <li class="modal__item-left">Genre</li>
+                </ul>
+                <ul class="modal__list-right">
+                    <li class="modal__item-right">
+                        <span class="movie__rating"></span>
+
+                    </li>
+                    <li class="modal__item-right">
+
+                    </li>
+                    <li class="modal__item-right">
+
+                    </li>
+                    <li class="modal__item-right">
+
+                    </li>
+                </ul>
+            </div>
+            <div class="modal__about">
+                <p class="modal__title">ABOUT</p>
+                <p class="modal__text"></p>
+            </div>
+            <button class="addTo__watched btn__style" type="button" data-action-watched="watched" data-movie-id="">ADD
+                TO WATCHED
+            </button>
+            <button class="addTo__queue btn__style" type="button" data-action-queue="queue" data-movie-id="">ADD TO
+                QUEUE
+            </button>
         </div>
-        <div class="modal__about">
-            <p class="modal__title">ABOUT</p>
-            <p class="modal__text"></p>
-        </div>
-        <button class="addTo__watched btn__style" type="button" data-action-watched="watched"
-            data-movie-id="">ADD TO WATCHED</button>
-        <button class="addTo__queue btn__style" type="button" data-action-queue="queue"
-            data-movie-id="">ADD TO QUEUE</button>
     </div>
 </div>

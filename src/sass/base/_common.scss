@@ -1,12 +1,8 @@
-h1,
-h2,
-h3,
-h4,
-ul,
-p {
+* {
   margin: 0;
   padding: 0;
-}
+  box-sizing: border-box;
+ }
 
 ul {
   list-style: none;
@@ -14,7 +10,7 @@ ul {
 
 body {
   font-family: 'Roboto', 'Verdana', 'Tahoma', sans-serif;
-  color: var(--brand-color);
+  color: $brand-color;
   font-size: 12px;
   font-weight: 500;
 }

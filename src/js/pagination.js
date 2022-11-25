@@ -409,7 +409,7 @@ pagination.addEventListener('click', changeBtn);
 function testBtn() {
   paginationBox.insertAdjacentHTML(
     'afterbegin',
-    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
+    `<button data-modal-open class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
   );
 }
 testBtn();
