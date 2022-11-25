@@ -3,23 +3,30 @@
       <!-- MAIN NAVIGATION -->
       <nav class="header-nav">
         <a href="index.html" class="link logo">
-          <svg class="icon icon__logo" height="24px" width="24px">
+          <svg class="icon logo__icon" height="24px" width="24px">
             <use href="./images/sprite/sprite.svg#icon-film-tape"></use>
           </svg>
           <h1 class="logo__title">filmoteka</h1>
         </a>
-        <ul class="header-nav">
-          <li class="header-nav__item">
+        <ul class="header-list">
+          <li class="header-list__item">
             <a href="index.html" class="home">home</a>
-        </li>
-        <li class="header-nav__item">
-          <a href="library.html" class="library">my library</a>
+          </li>
+          <li class="header-list__item">
+            <a href="library.html" class="library header--current-site">my library</a>
           </li>
         </ul>
       </nav>
       <!-- LIBRARY BUTTONS -->
-      <button class="btn btn-watched">watched</button>
-      <button class="btn btn-queue">queue</button>
+      <ul class="library-buttons">
+        <li class="library-buttons__item">
+          <button class="btn btn-watched btn-orange btn-active" id="btn-watched">watched</button>
+        </li>
+        <li class="library-buttons__item">
+          <button class="btn btn-queue btn-white" id="btn-queue">queue</button>
+        </li>
+      </ul>
     </div>
+    <script src="./js/library-markup.js"></script>
   </header>
   

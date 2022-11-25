@@ -4,6 +4,63 @@ import * as module from './fetch-to-main';
 let page;
 let actualPage = 1;
 
+//values that will have setted amount further in functions
+let endPageDots;
+let lastPage;
+let beginingDots;
+let getMovie = document.getElementById(`movie-list`);
+const pagination = document.querySelector('.pagination');
+const paginationBox = document.querySelector('.pagination-box');
+const startPageDots = document.querySelector('.start-page-dots');
+const arrowLeft = document.querySelector('.arrow-left');
+const arrowRight = document.querySelector('.arrow-right');
+
+const svgR = document.querySelector('.svg-right');
+const svgL = document.querySelector('.svg-left');
+
+//pagination mobile view
+function changePaginationView() {
+  if (window.innerWidth <= 767) {
+    startPageDots.style.display = 'none';
+    lastPage.style.display = 'none';
+    endPageDots.style.display = 'none';
+    if (beginingDots !== undefined) {
+      beginingDots.style.display = 'none';
+    }
+    //hide first page if actualPage is more than 4
+    if (actualPage >= 4) {
+      if (pagination.children[0] === undefined) {
+        return;
+      }
+      if (pagination.children[0].textContent === '1') {
+        pagination.children[0].style.display = 'none';
+      }
+    }
+    //hide last page  until the lastpage-1 is visible
+    if (actualPage <= module.totalPages - 4) {
+      if (
+        Number(
+          pagination.children[pagination.children.length - 1].textContent
+        ) === module.totalPages
+      ) {
+        pagination.children[pagination.children.length - 1].style.display =
+          'none';
+      }
+    }
+  }
+  if (window.innerWidth > 767) {
+    startPageDots.style.display = 'flex';
+    lastPage.style.display = 'block';
+    endPageDots.style.display = 'flex';
+    if (beginingDots !== undefined) {
+      beginingDots.style.display = 'flex';
+    }
+  }
+}
+// change the pagination view
+document.addEventListener('load', changePaginationView);
+window.addEventListener('resize', changePaginationView);
+
 //maintain the scroll position after page reload
 window.addEventListener('scroll', handleScroll);
 
@@ -21,22 +78,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }, module.timeDifference / 10);
   }
   //if timeDifference has proper value
-  if (module.timeDifference <= 1000) {
+  if (module.timeDifference < 1000) {
     setTimeout(() => {
       window.scroll({ top: y, x: 0 });
     }, module.timeDifference);
   }
 });
-
-let getMovie = document.getElementById(`movie-list`);
-const pagination = document.querySelector('.pagination');
-const paginationBox = document.querySelector('.pagination-box');
-const startPageDots = document.querySelector('.start-page-dots');
-const arrowLeft = document.querySelector('.arrow-left');
-const arrowRight = document.querySelector('.arrow-right');
-
-const svgR = document.querySelector('.svg-right');
-const svgL = document.querySelector('.svg-left');
 
 //geometric for whole pagination
 startPageDots.style.display = 'flex';
@@ -92,7 +139,7 @@ const makeStartPagination = () => {
       stylesAndListeners();
     }, module.timeDifference / 10);
   }
-  if (module.timeDifference <= 1000) {
+  if (module.timeDifference < 1000) {
     return setTimeout(() => {
       startState();
       stylesAndListeners();
@@ -139,6 +186,7 @@ function stylesAndListeners() {
       pagination.children[i].style.marginLeft = '4px';
       pagination.children[i].style.marginRight = '4px';
       pagination.children[i].style.border = 'none';
+      changePaginationView();
     }
     //click events on buttons
     pagination.children[i].addEventListener('click', buttonClick);
@@ -154,8 +202,9 @@ function startState() {
   );
   pagination.insertAdjacentHTML(
     'beforeend',
-    `<button>${module.totalPages}</button>`
+    `<button class="last-page">${module.totalPages}</button>`
   );
+  lastPage = document.querySelector('.last-page');
   //creating frist 5 pages
   for (let i = 5; i >= 1; i--) {
     pagination.insertAdjacentHTML(
@@ -163,6 +212,8 @@ function startState() {
       `<button class="pagination-button" style="margin-left:2px;">${i}</button>`
     );
   }
+  lastPage = document.querySelector('.last-page');
+  endPageDots = document.querySelector('.end-dots');
 }
 
 //moving all pages forward
@@ -186,13 +237,15 @@ function pageForward() {
   //insert first page and dots after it
   pagination.insertAdjacentHTML(
     'afterbegin',
-    `<span class="begining-dots" style="cursor: default; margin: none;">...</span>`
+    `<span class="begining-dots" style="cursor: default; margin: none;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`
   );
   pagination.insertAdjacentHTML(
     'afterbegin',
     `<button class="pagination-button">${1}</button>`
   );
+  beginingDots = document.querySelector('.begining-dots');
   stylesAndListeners();
+  changePaginationView();
 }
 
 //moving all pages backward
@@ -221,16 +274,23 @@ async function pageBackward() {
   );
   pagination.insertAdjacentHTML(
     'beforeend',
-    `<button class="pagination-button" style="background-color: transparent; border: none;">${module.totalPages}</button>`
+    `<button class="pagination-button last-page"  style="background-color: transparent; border: none;">${module.totalPages}</button>`
   );
   stylesAndListeners();
+  endPageDots = document.querySelector('.end-dots');
+  lastPage = document.querySelector('.last-page');
+  changePaginationView();
 }
 
 function buttonClick(e) {
   // if clicked on dots
+  if (e.target.classList.contains('begining-dots')) {
+    Notify.info(`${actualPage - 1}` + ' pages backward');
+  }
   if (e.target.nodeName === 'SPAN') {
     return;
   }
+
   //setting page number to clicked button
 
   page = actualPage = e.target.textContent;
@@ -241,7 +301,7 @@ function buttonClick(e) {
     arrowLeft.style.visibility = 'visible';
     arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
-    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default; margin: none;">...</span>`;
+    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default; margin: none;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`;
     startPageDots.insertAdjacentHTML(
       'afterbegin',
       `<button class="pagination-button" style="cursor: pointer; height: 40px; width: 40px;">${1}</button>`
@@ -255,6 +315,7 @@ function buttonClick(e) {
       'afterbegin',
       `<span class="end-dots">...</span>`
     );
+    endPageDots = document.querySelector('.end-dots');
   }
   // hide begining dots
   if (actualPage <= 4) {
@@ -269,6 +330,7 @@ function buttonClick(e) {
   if (actualPage >= module.totalPages - 3) {
     arrowRight.style.transition = 'all 250ms';
     arrowRight.style.visibility = 'hidden';
+    changePaginationView();
   }
   //loop for dynamic creating first 5 pages, and last 5 pages
   for (let i = Number(actualPage) + 2; i >= Number(actualPage) - 2; i--) {
@@ -312,6 +374,12 @@ function changeBtn(e) {
   if (e.target.nodeName === 'DIV') {
     return;
   }
+  if (
+    e.target.nodeName === 'SPAN' &&
+    !e.target.classList.contains('begining-dots')
+  ) {
+    return Notify.info(`${module.totalPages - actualPage}` + ' pages left');
+  }
   if (e.target.nodeName === 'SPAN') {
     return;
   }
@@ -327,7 +395,7 @@ function changeBtn(e) {
         window.scroll({ top: posY, x: 0, behavior: 'smooth' });
       }, module.timeDifference / 10);
     }
-    if (module.timeDifference <= 1000) {
+    if (module.timeDifference < 1000) {
       setTimeout(() => {
         window.scroll({ top: posY, x: 0, behavior: 'smooth' });
       }, module.timeDifference * 10);
@@ -337,19 +405,19 @@ function changeBtn(e) {
 
 pagination.addEventListener('click', changeBtn);
 
-//testing functions
-function testBtn() {
-  paginationBox.insertAdjacentHTML(
-    'afterbegin',
-    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
-  );
-}
-testBtn();
-const tBtn = document.querySelector('.test');
-tBtn.addEventListener('click', () => {
-  Notify.info('current page = ' + `${actualPage}`);
-  Notify.info('total pages = ' + `${module.totalPages}`);
-  Notify.info('time difference = ' + `${module.timeDifference}`);
-  console.log(sessionStorage.getItem('SCROLLPOS'));
-});
-// export { page };
+// //testing functions
+// function testBtn() {
+//   paginationBox.insertAdjacentHTML(
+//     'afterbegin',
+//     `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
+//   );
+// }
+// testBtn();
+// const tBtn = document.querySelector('.test');
+// tBtn.addEventListener('click', () => {
+//   Notify.info('current page = ' + `${actualPage}`);
+//   Notify.info('total pages = ' + `${module.totalPages}`);
+//   Notify.info('time difference = ' + `${module.timeDifference}`);
+//   Notify.info('window width = ' + `${window.innerWidth}`);
+//   console.log(sessionStorage.getItem('SCROLLPOS'));
+// });
