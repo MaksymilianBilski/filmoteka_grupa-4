@@ -10,11 +10,6 @@ let time1;
 let time2;
 let timeDifference = 1000;
 
-function fetchMovies(API_KEY) {
-  fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
-    .then(response => response.json())
-    .then(data => start(data));
-}
 fetchMovies(API_KEY);
 
 async function fetchMovies(API_KEY) {
