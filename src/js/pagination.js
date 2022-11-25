@@ -36,7 +36,7 @@ function changePaginationView() {
         pagination.children[0].style.display = 'none';
       }
     }
-    //hide last page if there is no lastPage - 1 seen
+    //hide last page  until the lastpage-1 is visible
     if (actualPage <= module.totalPages - 4) {
       if (
         Number(
@@ -237,7 +237,7 @@ function pageForward() {
   //insert first page and dots after it
   pagination.insertAdjacentHTML(
     'afterbegin',
-    `<span class="begining-dots" style="cursor: default; margin: none;">...</span>`
+    `<span class="begining-dots" style="cursor: default; margin: none;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`
   );
   pagination.insertAdjacentHTML(
     'afterbegin',
@@ -301,7 +301,7 @@ function buttonClick(e) {
     arrowLeft.style.visibility = 'visible';
     arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
-    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default; margin: none;">...</span>`;
+    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default; margin: none;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`;
     startPageDots.insertAdjacentHTML(
       'afterbegin',
       `<button class="pagination-button" style="cursor: pointer; height: 40px; width: 40px;">${1}</button>`
@@ -405,19 +405,19 @@ function changeBtn(e) {
 
 pagination.addEventListener('click', changeBtn);
 
-//testing functions
-function testBtn() {
-  paginationBox.insertAdjacentHTML(
-    'afterbegin',
-    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
-  );
-}
-testBtn();
-const tBtn = document.querySelector('.test');
-tBtn.addEventListener('click', () => {
-  Notify.info('current page = ' + `${actualPage}`);
-  Notify.info('total pages = ' + `${module.totalPages}`);
-  Notify.info('time difference = ' + `${module.timeDifference}`);
-  Notify.info('window width = ' + `${window.innerWidth}`);
-  console.log(sessionStorage.getItem('SCROLLPOS'));
-});
+// //testing functions
+// function testBtn() {
+//   paginationBox.insertAdjacentHTML(
+//     'afterbegin',
+//     `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
+//   );
+// }
+// testBtn();
+// const tBtn = document.querySelector('.test');
+// tBtn.addEventListener('click', () => {
+//   Notify.info('current page = ' + `${actualPage}`);
+//   Notify.info('total pages = ' + `${module.totalPages}`);
+//   Notify.info('time difference = ' + `${module.timeDifference}`);
+//   Notify.info('window width = ' + `${window.innerWidth}`);
+//   console.log(sessionStorage.getItem('SCROLLPOS'));
+// });
