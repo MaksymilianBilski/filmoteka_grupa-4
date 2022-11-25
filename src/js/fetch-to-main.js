@@ -27,7 +27,6 @@ async function fetchMovies(API_KEY) {
   time2 = new Date().getTime();
   timeDifference = time2 - time1;
 }
-fetchMovies(API_KEY);
 function start(movies) {
   for (const movie of movies.results) {
     totalPages = movies.total_pages;
