@@ -90,7 +90,7 @@ function searcher(page) {
     spinner.stop();
   }
 }
-searchForm.addEventListener('input', e => {
+searchForm.addEventListener('submit', e => {
   e.preventDefault();
   searcher('');
 });

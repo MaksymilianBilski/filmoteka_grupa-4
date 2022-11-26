@@ -8,7 +8,9 @@ let actualPage = 1;
 function engine() {
   console.log(search);
   if (search === true) {
-    lastPage.textContent = totalSearchedPages;
+    setTimeout(() => {
+      lastPage.textContent = totalSearchedPages;
+    }, module.timeDifference);
     if (lastPage.classList.contains('last-page')) {
       lastPage.textContent = totalSearchedPages;
     }
