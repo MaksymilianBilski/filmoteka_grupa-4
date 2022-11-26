@@ -100,5 +100,5 @@ getMovie.addEventListener('click', event => {
         }
       });
     })
-    .catch(error => console.log('error in modal script'));
+    .catch(error => console.log(error));
 });
