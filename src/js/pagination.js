@@ -65,6 +65,9 @@ window.addEventListener('resize', changePaginationView);
 window.addEventListener('scroll', handleScroll);
 
 function handleScroll(evt) {
+  if (evt.path === undefined) {
+    return;
+  }
   const scrollPos = evt.path[1].pageYOffset;
   window.sessionStorage.setItem('SCROLLPOS', scrollPos);
 }
@@ -98,29 +101,39 @@ paginationBox.style.alignItems = 'center';
 arrowLeft.style.visibility = 'hidden';
 arrowLeft.style.backgroundColor = 'transparent';
 arrowLeft.style.border = 'none';
+arrowLeft.style.borderRadius = '5px';
+arrowLeft.style.width = '40px';
+arrowLeft.style.height = '40px';
 
 arrowRight.style.marginLeft = '10px';
 arrowRight.style.border = 'none';
+arrowRight.style.borderRadius = '5px';
 arrowRight.style.backgroundColor = 'transparent';
+arrowRight.style.width = '40px';
+arrowRight.style.height = '40px';
 
 //arrows hover effects
 svgL.addEventListener('mouseout', e => {
   e.target.style.transition = 'all 150ms';
   e.target.style.fill = 'black';
+  arrowLeft.style.backgroundColor = 'transparent';
 });
 svgL.addEventListener('mouseover', e => {
   e.target.style.transition = 'all 150ms';
   e.target.style.fill = '#ff6b08';
   e.target.style.cursor = 'pointer';
+  arrowLeft.style.backgroundColor = '#F7F7F7';
 });
 svgR.addEventListener('mouseout', e => {
   e.target.style.transition = 'all 150ms';
   e.target.style.fill = 'black';
+  arrowRight.style.backgroundColor = 'transparent';
 });
 svgR.addEventListener('mouseover', e => {
   e.target.style.transition = 'all 150ms';
   e.target.style.fill = '#ff6b08';
   e.target.style.cursor = 'pointer';
+  arrowRight.style.backgroundColor = '#F7F7F7';
 });
 
 // add arrow functions on click
@@ -174,11 +187,13 @@ function stylesAndListeners() {
       pagination.children[i].addEventListener('mouseover', e => {
         e.target.style.transition = 'all 250ms';
         e.target.style.backgroundColor = '#ff6b08';
-        e.target.style.borderRadius = '4px';
+        e.target.style.borderRadius = '5px';
+        e.target.style.color = '#FFFFFF';
       });
       pagination.children[i].addEventListener('mouseout', e => {
         e.target.style.backgroundColor = 'transparent';
         e.target.style.borderRadius = '0px';
+        e.target.style.color = '#000000';
       });
     }
     //end dots styling
@@ -237,7 +252,7 @@ function pageForward() {
   //insert first page and dots after it
   pagination.insertAdjacentHTML(
     'afterbegin',
-    `<span class="begining-dots" style="cursor: default; margin: none;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`
+    `<span class="begining-dots" style="cursor: default;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`
   );
   pagination.insertAdjacentHTML(
     'afterbegin',
@@ -290,6 +305,9 @@ function buttonClick(e) {
   if (e.target.nodeName === 'SPAN') {
     return;
   }
+  if (e.target.classList.contains('.beginig-dots')) {
+    return;
+  }
 
   //setting page number to clicked button
 
@@ -301,7 +319,7 @@ function buttonClick(e) {
     arrowLeft.style.visibility = 'visible';
     arrowRight.style.visibility = 'visible';
     // dots and first page at the begining if the actual page is bigger than 4
-    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default; margin: none;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center; margin: 0;">...</span>`;
+    startPageDots.innerHTML = `<span class="begining-dots" style="cursor: default;height: 100%; width: 16px; display: flex; align-items:center;justify-content: center;  margin: 0;">...</span>`;
     startPageDots.insertAdjacentHTML(
       'afterbegin',
       `<button class="pagination-button" style="cursor: pointer; height: 40px; width: 40px;">${1}</button>`
@@ -361,8 +379,7 @@ function buttonClick(e) {
         e.target.style.backgroundColor = 'transparent';
         e.target.style.borderRadius = '0px';
       });
-      startPageDots.children[1].style.marginLeft = '4px';
-      startPageDots.children[1].style.marginRight = '4px';
+
       startPageDots.children[1].style.border = 'none';
       startPageDots.children[1].style.backgroundColor = 'transparent';
     }

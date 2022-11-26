@@ -1,43 +1,49 @@
 
-<div style="background-color: red; width:100px; height: 100px" class="modal__container">
-        <button type='button' class='modal__button-close' data-id='close'>
-            <img class='modal__icon-close' href="/src/images/modal/close.svg">
-        </button>
-    <!-- <div class="modal__image">
-        <img src="" alt="">
-    </div> -->
-    <div class="modal__description">
-        <h1 class="modal__description-title"></h1>
-        <div class="modal__description-block">
-            <ul class="modal__list-left">
-                <li class="modal__item-left">Vote / Votes</li>
-                <li class="modal__item-left">Popularity</li>
-                <li class="modal__item-left">Original title</li>
-                <li class="modal__item-left">Genre</li>
-            </ul>
-            <ul class="modal__list-right">
-                <li class="modal__item-right">
-                    <span class="movie__rating"></span> 
-                    
-                </li>
-                <li class="modal__item-right">
-                    
-                </li>
-                <li class="modal__item-right">
-                    
-                </li>
-                <li class="modal__item-right">
-                    
-                </li>
-            </ul>
+<div class="backdrop is-hidden" data-modal>
+    <div class="modal">
+      <button type="button" class="modal__close-btn" data-modal-close>&#10005</button>
+  
+      <div class="modal__img">
+        <img class="modal__img-picture"
+          src="./images/poster.png"
+          alt="obraz" />
+      </div>
+  
+      <div class="modal__content">
+        <h2 class="modal__head"></h2>
+        <ul class="modal__list">
+          <li class="modal__item">
+            <span class="modal__votes modal__parameters">Vote / Votes</span>
+            <div class="modal_wrapper">
+              <span class="modal__rating">7.3</span> /
+              <span class="modal__votes-number">1260</span>
+            </div>
+          </li>
+          <li class="modal__item">
+            <span class="modal__popularity modal__parameters">Popularity</span>
+            <span class="modal__popularity-total">100.2</span>
+          </li>
+          <li class="modal__item">
+            <span class="modal__title modal__parameters">Original Title</span>
+            <span class="modal__title-original">A FISTFUL OF LEAD</span>
+          </li>
+          <li class="modal__item">
+            <span class="modal__genre modal__parameters">Genre</span>
+            <span class="modal__genre-description">Western </span>
+          </li>
+        </ul>
+  
+        <p class="modal__about">About</p>
+        <p class="modal__text"></p>
+  
+        <div class="modal__button-container">
+          <button class="modal__button-watched modal__buttons" type="button">
+            ADD TO WATCHED
+          </button>
+          <button class="modal__button-queue modal__buttons" type="button">
+            ADD TO QUEUE
+          </button>
         </div>
-        <div class="modal__about">
-            <p class="modal__title">ABOUT</p>
-            <p class="modal__text"></p>
-        </div>
-        <button class="addTo__watched btn__style" type="button" data-action-watched="watched"
-            data-movie-id="">ADD TO WATCHED</button>
-        <button class="addTo__queue btn__style" type="button" data-action-queue="queue"
-            data-movie-id="">ADD TO QUEUE</button>
+      </div>
     </div>
-</div>
+  </div>

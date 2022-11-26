@@ -1,7 +1,9 @@
 /*działa! wersja w pętli!*/
 /*wersja najlepsza*/
+import { async } from 'regenerator-runtime';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
+
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
 //for pagination: amount of all pages, and time needed to fetch one page(timeDifference)
@@ -10,11 +12,6 @@ let time1;
 let time2;
 let timeDifference = 1000;
 
-function fetchMovies(API_KEY) {
-  fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
-    .then(response => response.json())
-    .then(data => start(data));
-}
 fetchMovies(API_KEY);
 
 async function fetchMovies(API_KEY) {
@@ -55,13 +52,16 @@ function start(movies) {
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
           filmDetails.poster_path || filmDetails.poster_path
-        }>
+        }
+        onerror="this.onerror=null;this.src='https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';"
+        >
 
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
         <div id="movie-info">
-        <p class="movie-categories">${filmCategories} | </p>
-        <p class="year-of-release">${releaseDate}</p>
+        <p class="movie-categories">${filmCategories || "No category info"} </p>
+        <p class="year-of-release">|${releaseDate || "Unknown"}</p>
         </div>
+
         </div>
         </li>`
       );

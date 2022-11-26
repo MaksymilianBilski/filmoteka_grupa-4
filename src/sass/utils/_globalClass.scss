@@ -1,3 +1,5 @@
-.hidden{
-    visibility: hidden;
+.is-hidden {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
 }
