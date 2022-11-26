@@ -20,6 +20,9 @@ let SEACRH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&q
 searchForm.addEventListener('input', event => {
   event.preventDefault();
   let searchValue = input.value.toLowerCase()
+  if (getMovie.children.length > 1) {
+    getMovie.innerHTML = '';
+  }
   if (searchValue && searchValue !=='') {
     fetch(SEACRH_URL+searchValue)
     .then(data => {
@@ -30,5 +33,6 @@ searchForm.addEventListener('input', event => {
     })
     searchValue=''
   }
+  fetchMovies(API_KEY)
 });
 
