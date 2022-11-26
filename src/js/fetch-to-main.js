@@ -78,12 +78,14 @@ async function fetchDetails(filmId, API_KEY) {
   }
   const filmDetails = await response.json();
   return filmDetails;
+  
 }
 
 export {
   fetchMovies,
   start,
   fetchDetails,
+  getMovie,
   API_KEY,
   totalPages,
   timeDifference,
