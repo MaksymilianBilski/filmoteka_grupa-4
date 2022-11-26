@@ -63,7 +63,7 @@ let search;
 
 const searchForm = document.getElementById('search-form');
 
-function searcher(page) {
+async function searcher(page) {
   search = true;
   engine();
   const input = document.getElementById('form-input');
@@ -79,15 +79,24 @@ function searcher(page) {
   }
   if (searchValue && searchValue !== '') {
     fetch(SEARCH_URL + searchValue + page)
-      .then(data => {
-        return data.json();
-      })
-      .then(movies => {
-        start(movies);
-        totalSearchedPages = movies.total_pages;
-      });
+    .then(data => {
+      return data.json();
+    })
+    .then(movies => {
+      start(movies);
+      totalSearchedPages = movies.total_pages;
+    });
     searchValue = '';
     spinner.stop();
+    const response = await fetch(SEARCH_URL + searchValue + page);
+    if (!response.ok) {
+      const formError = document.querySelector('.header-form-error')
+      formError.innerText = "Search result not successful. Enter the correct movie name and try again."
+      setTimeout(() => {formError.innerText = ''}, 3000)
+      search = false;
+      searchValue = '';
+      return
+    }
   }
 }
 searchForm.addEventListener('submit', e => {
