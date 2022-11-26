@@ -31,7 +31,7 @@ getMovie.addEventListener('click', event => {
       filmCategories = categories.join(', ');
       console.log(popularity);
       modal.innerHTML = '';
-      markup = `
+      let markup = `
     <div class="modal">
       <button type="button" class="modal__close-btn" data-modal-close>&#10005</button>
       <div class="modal__img">
