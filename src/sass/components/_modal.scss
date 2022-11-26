@@ -1,0 +1,192 @@
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #0003;
+    opacity: 1;
+    transition: opacity $transitionEffect;
+  }
+  
+  .is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px #000000 solid;
+    background-color: #fff;
+    padding: 48px 20px 40px;
+    opacity: 1;
+    z-index: 2;
+    overflow: auto;
+    
+  
+    &__close-btn {
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 25px;
+      font-weight: 500;
+    }
+  
+    &__head {
+      margin-top: 30px;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 23px;
+      text-transform: uppercase;
+    }
+  
+    &__img {
+      min-width: 240px;
+  
+      &-picture {
+        border-radius: 5px;
+      }
+    }
+  
+    &__list {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+    }
+  
+    &__item {
+      font-size: 12px;
+      line-height: 16px;
+      display: flex;
+      justify-content: space-between;
+  
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+  
+    &__parameters {
+      color: #8c8c8c;
+      font-weight: 500px;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  
+    &__about {
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  
+    &__text {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  
+    &__button-container {
+      margin-top: 21px;
+      display: flex;
+    }
+  
+    &__buttons {
+      background-color: transparent;
+      width: 112px;
+      height: 44px;
+      border: 1px solid #000000;
+      border-radius: 5px;
+      transition: color $transitionEffect, background-color $transitionEffect,
+        border-color $transitionEffect;
+  
+      &:hover {
+        color: #fff;
+        border-color:  var(--background-color-1);
+        background-color: var(--background-color-1);
+        cursor: pointer;
+      }
+    }
+  
+    &__rating {
+      display: inline-block;
+      text-align: center;
+      color: #fff;
+      width: 36px;
+      height: 16px;
+      background-color: var(--background-color-1);
+      border-radius: 5px;
+    }
+  
+    &__votes-number {
+      display: inline-block;
+      text-align: center;
+      color: black;
+      width: 36px;
+      height: 16px;
+      background-color: #f7f7f7;
+      border-radius: 5px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .modal {
+      height: 100vh;
+  
+      &__button-container {
+        justify-content: space-between;
+      }
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .modal {
+      min-width: 618px;
+      padding: 40px 30px;
+      display: flex;
+  
+      &__head {
+        margin-top: 0;
+      }
+  
+      &__img {
+        min-width: 264px;
+        margin-right: 30px;
+      }
+  
+      &__button-container {
+        gap: 15px;
+      }
+  
+      &__buttons {
+        width: 125px;
+      }
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .modal {
+      min-width: 882px;
+      padding: 50px 30px;
+  
+      &__head {
+        font-size: 30px;
+        line-height: 35px;
+      }
+  
+      &__img {
+        min-width: 396px;
+      }
+  
+      &__buttons {
+        width: 136px;
+      }
+    }
+  }
