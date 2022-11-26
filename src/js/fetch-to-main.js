@@ -57,6 +57,7 @@ function start(fetchMovies) {
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           movieIndex[i].poster_path
         }>
 <<<<<<< Updated upstream
@@ -73,6 +74,17 @@ function start(fetchMovies) {
         <div id="movie-info">
         <p class="movie-categories">${filmCategories} </p>
         <p class="year-of-release">|${releaseDate}</p>
+=======
+          filmDetails.poster_path || filmDetails.poster_path}
+          onerror="this.onerror=null;this.src='https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';" 
+        >
+
+        <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
+        <div id="movie-info">
+        <p class="movie-categories">${filmCategories}</p>
+        <p class="year-of-release">|${releaseDate}</p>
+        </div>
+>>>>>>> Stashed changes
         </div>
 
 >>>>>>> Stashed changes
