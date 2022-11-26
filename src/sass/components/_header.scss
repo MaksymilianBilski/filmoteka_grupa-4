@@ -128,6 +128,16 @@
       background-color: var(--background-color-1);
     }
   }
+  &-form {
+    &-error {
+      color: #FF001B;
+      font-weight: 400;
+      font-size: 14px;
+      display: flex;
+      padding-top: 22px;
+      justify-content: center;
+    }
+  }
 }
 .logo {
   display: flex;
