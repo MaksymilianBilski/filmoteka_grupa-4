@@ -51,13 +51,15 @@ async function fetchMovies(API_KEY) {
         `<li  data-film="${filmDetails.id}" style="list-style-type:none;">
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
+          movieIndex[i].poster_path
+        }>
+        <p class="movie-title">${movieIndex[i].name || movieIndex[i].title}</p>
           filmDetails.poster_path || filmDetails.poster_path
         }>
 
-        <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
         <div id="movie-info">
-        <p class="movie-categories">${filmCategories} | </p>
-        <p class="year-of-release">${releaseDate}</p>
+        <p class="movie-categories">${filmCategories} </p>
+        <p class="year-of-release">|${releaseDate}</p>
         </div>
         </div>
         </li>`
