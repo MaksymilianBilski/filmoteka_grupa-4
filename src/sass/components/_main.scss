@@ -53,8 +53,12 @@
   }        
   .movie-title{
     max-width: 280px;
-  }       
+  }   
     }
+    .movie-box{
+      padding: 20px 0px;
+    
+    }  
   }
   
 @media (min-width: 768px) {
@@ -73,6 +77,10 @@
     .movie-title{
       max-width: 293px;
     }       
+    
+    .movie-box{
+      padding: 60px 0px;
+}      
 }
 
 
@@ -91,7 +99,11 @@
       }    
       .movie-title{
         max-width: 274px;
-      }       
+      }
+      
+      .movie-box{
+        padding: 60px 0px;
+}             
     }
   }
 
