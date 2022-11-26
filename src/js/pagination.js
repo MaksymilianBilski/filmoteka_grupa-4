@@ -1,8 +1,19 @@
 import { Notify } from 'notiflix';
 import * as module from './fetch-to-main';
+import { search, totalSearchedPages, searcher } from './search_engine';
 
 let page;
 let actualPage = 1;
+
+function engine() {
+  console.log(search);
+  if (search === true) {
+    lastPage.textContent = totalSearchedPages;
+    if (lastPage.classList.contains('last-page')) {
+      lastPage.textContent = totalSearchedPages;
+    }
+  }
+}
 
 //values that will have setted amount further in functions
 let endPageDots;
@@ -402,6 +413,11 @@ function changeBtn(e) {
   }
   // } //if there are some buttons, do a loop and add event listeners + styles
   else if (pagination.children.length > 0) {
+    if (search === true) {
+      searcher(`&page=${page}`);
+      stylesAndListeners();
+      return;
+    }
     getMovie.innerHTML = '';
     module.fetchMovies(module.API_KEY + `&page=${page}`);
     stylesAndListeners();
@@ -422,19 +438,21 @@ function changeBtn(e) {
 
 pagination.addEventListener('click', changeBtn);
 
-// //testing functions
-// function testBtn() {
-//   paginationBox.insertAdjacentHTML(
-//     'afterbegin',
-//     `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
-//   );
-// }
-// testBtn();
-// const tBtn = document.querySelector('.test');
-// tBtn.addEventListener('click', () => {
-//   Notify.info('current page = ' + `${actualPage}`);
-//   Notify.info('total pages = ' + `${module.totalPages}`);
-//   Notify.info('time difference = ' + `${module.timeDifference}`);
-//   Notify.info('window width = ' + `${window.innerWidth}`);
-//   console.log(sessionStorage.getItem('SCROLLPOS'));
-// });
+//testing functions
+function testBtn() {
+  paginationBox.insertAdjacentHTML(
+    'afterbegin',
+    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
+  );
+}
+testBtn();
+const tBtn = document.querySelector('.test');
+tBtn.addEventListener('click', () => {
+  Notify.info('current page = ' + `${actualPage}`);
+  Notify.info('total pages = ' + `${module.totalPages}`);
+  Notify.info('time difference = ' + `${module.timeDifference}`);
+  Notify.info('window width = ' + `${window.innerWidth}`);
+  console.log(sessionStorage.getItem('SCROLLPOS'));
+  engine();
+});
+export { engine };
