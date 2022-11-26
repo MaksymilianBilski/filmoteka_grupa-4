@@ -50,8 +50,8 @@ function start(movies) {
         >
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
         <div id="movie-info">
-        <p class="movie-categories">${filmCategories || "No category info"} </p>
-        <p class="year-of-release">|${releaseDate || "Unknown"}</p>
+        <p class="movie-categories">${filmCategories || 'No category info'} </p>
+        <p class="year-of-release">|${releaseDate || 'Unknown'}</p>
         </div>
         </div>
         </li>`
