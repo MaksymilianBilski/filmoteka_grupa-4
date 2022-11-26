@@ -17,7 +17,7 @@ const opts = {
   shadow: '0 0 1px transparent', // Box-shadow for the lines
   zIndex: 2000000000, // The z-index (defaults to 2e9)
   className: 'spinner', // The CSS class to assign to the spinner
-  position: 'absolute', // Element positioning
+  position: 'fixed', // Element positioning
 };
 
 export { opts };
