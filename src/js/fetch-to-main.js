@@ -52,12 +52,14 @@ function start(movies) {
         <div class="movie-container">
         <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
           filmDetails.poster_path || filmDetails.poster_path
-        }>
+        }
+        onerror="this.onerror=null;this.src='https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';"
+        >
 
         <p class="movie-title">${filmDetails.name || filmDetails.title}</p>
         <div id="movie-info">
-        <p class="movie-categories">${filmCategories} | </p>
-        <p class="year-of-release">${releaseDate}</p>
+        <p class="movie-categories">${filmCategories} </p>
+        <p class="year-of-release">|${releaseDate}</p>
         </div>
 
         </div>
