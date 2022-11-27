@@ -22,8 +22,9 @@ const svgL = document.querySelector('.svg-left');
 function searchEnginePagination() {
   setTimeout(() => {
     if (search === true) {
-      if (actualPage > 1) {
+      if (actualPage > totalSearchedPages) {
         page = 1;
+        pageBackward();
       }
       lastPage.textContent = totalSearchedPages;
       if (totalSearchedPages < 10) {
