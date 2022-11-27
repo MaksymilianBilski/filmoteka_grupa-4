@@ -51,7 +51,7 @@ import {
   totalPages,
   timeDifference,
 } from './fetch-to-main';
-import { searhEnginePagination } from './pagination';
+import { searchEnginePagination } from './pagination';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 
@@ -65,7 +65,7 @@ const searchForm = document.getElementById('search-form');
 
 async function searcher(page) {
   search = true;
-  searhEnginePagination();
+  searchEnginePagination();
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
     getMovie.innerHTML = '';
@@ -87,20 +87,20 @@ async function searcher(page) {
       });
     searchValue = '';
     spinner.stop();
-    const response = await fetch(SEARCH_URL + searchValue + page);
-    if (!response.ok) {
-      const formError = document.querySelector('.header-form-error');
-      formError.innerText =
-        'Search result not successful. Enter the correct movie name and try again.';
-      setTimeout(() => {
-        formError.innerText = '';
-      }, 3000);
-      searchValue = '';
+    // const response = await fetch(SEARCH_URL + searchValue + page);
+    // if (!response.ok) {
+    //   const formError = document.querySelector('.header-form-error');
+    //   formError.innerText =
+    //     'Search result not successful. Enter the correct movie name and try again.';
+    //   setTimeout(() => {
+    //     formError.innerText = '';
+    //   }, 3000);
+    searchValue = '';
 
-      return;
-    }
+    return;
   }
 }
+
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
   searcher('');
