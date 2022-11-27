@@ -52,7 +52,6 @@ import {
   timeDifference,
 } from './fetch-to-main';
 import { searchEnginePagination } from './pagination';
-import { searchEnginePagination } from './pagination';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 

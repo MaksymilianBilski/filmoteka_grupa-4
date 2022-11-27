@@ -455,7 +455,7 @@ function changeBtn(e) {
   else if (pagination.children.length > 0) {
     if (search === true) {
       searcher(`&page=${page}`);
-      searhEnginePaginatione();
+      searchEnginePagination();
       stylesAndListeners();
       return;
     }
