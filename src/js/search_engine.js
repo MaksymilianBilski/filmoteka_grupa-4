@@ -99,8 +99,6 @@ async function searcher(page) {
     //     formError.innerText = '';
     //   }, 3000);
     searchValue = '';
-    pagination;
-
     return;
   }
 }
