@@ -79,23 +79,26 @@ async function searcher(page) {
   }
   if (searchValue && searchValue !== '') {
     fetch(SEARCH_URL + searchValue + page)
-    .then(data => {
-      return data.json();
-    })
-    .then(movies => {
-      start(movies);
-      totalSearchedPages = movies.total_pages;
-    });
+      .then(data => {
+        return data.json();
+      })
+      .then(movies => {
+        start(movies);
+        totalSearchedPages = movies.total_pages;
+      });
     searchValue = '';
     spinner.stop();
     const response = await fetch(SEARCH_URL + searchValue + page);
     if (!response.ok) {
-      const formError = document.querySelector('.header-form-error')
-      formError.innerText = "Search result not successful. Enter the correct movie name and try again."
-      setTimeout(() => {formError.innerText = ''}, 3000)
+      const formError = document.querySelector('.header-form-error');
+      formError.innerText =
+        'Search result not successful. Enter the correct movie name and try again.';
+      setTimeout(() => {
+        formError.innerText = '';
+      }, 3000);
+      fetchMovies(API_KEY);
       search = false;
       searchValue = '';
-      return
     }
   }
 }
