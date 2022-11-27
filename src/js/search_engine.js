@@ -66,7 +66,6 @@ const searchForm = document.getElementById('search-form');
 async function searcher(page) {
   search = true;
   searhEnginePagination();
-
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
     getMovie.innerHTML = '';
