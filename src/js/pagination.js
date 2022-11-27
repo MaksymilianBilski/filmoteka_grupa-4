@@ -19,7 +19,7 @@ const svgR = document.querySelector('.svg-right');
 const svgL = document.querySelector('.svg-left');
 
 // making pagination for search engine
-function searhEnginePagination() {
+function searchEnginePagination() {
   setTimeout(() => {
     if (search === true) {
       if (actualPage > 1) {
@@ -186,11 +186,11 @@ svgR.addEventListener('mouseover', e => {
 
 // add arrow functions on click
 svgL.addEventListener('click', () => {
-  searhEnginePagination();
+  searchEnginePagination();
   pageBackward();
 });
 svgR.addEventListener('click', () => {
-  searhEnginePagination();
+  searchEnginePagination();
   pageForward();
 });
 
@@ -496,4 +496,4 @@ pagination.addEventListener('click', changeBtn);
 //   console.log(sessionStorage.getItem('SCROLLPOS'));
 //   searhEnginePagination();
 // });
-export { searhEnginePagination, pageBackward, actualPage };
+export { searchEnginePagination, pageBackward, actualPage };
