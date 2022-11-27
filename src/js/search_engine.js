@@ -62,7 +62,6 @@ async function searcher(page) {
       });
     searchValue = '';
     spinner.stop();
-    searchValue = '';
     return;
   }
 }
