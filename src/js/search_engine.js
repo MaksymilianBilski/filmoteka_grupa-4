@@ -51,12 +51,12 @@ import {
   totalPages,
   timeDifference,
 } from './fetch-to-main';
-import { engine } from './pagination';
+import { engine} from './pagination';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 
 const API_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
-
+const input = document.getElementById('form-input');
 let SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 let totalSearchedPages;
 let search;
@@ -66,7 +66,7 @@ const searchForm = document.getElementById('search-form');
 async function searcher(page) {
   search = true;
   engine();
-  const input = document.getElementById('form-input');
+
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
     getMovie.innerHTML = '';
@@ -79,23 +79,26 @@ async function searcher(page) {
   }
   if (searchValue && searchValue !== '') {
     fetch(SEARCH_URL + searchValue + page)
-    .then(data => {
-      return data.json();
-    })
-    .then(movies => {
-      start(movies);
-      totalSearchedPages = movies.total_pages;
-    });
+      .then(data => {
+        return data.json();
+      })
+      .then(movies => {
+        start(movies);
+        totalSearchedPages = movies.total_pages;
+      });
     searchValue = '';
     spinner.stop();
     const response = await fetch(SEARCH_URL + searchValue + page);
     if (!response.ok) {
-      const formError = document.querySelector('.header-form-error')
-      formError.innerText = "Search result not successful. Enter the correct movie name and try again."
-      setTimeout(() => {formError.innerText = ''}, 3000)
-      search = false;
+      const formError = document.querySelector('.header-form-error');
+      formError.innerText =
+        'Search result not successful. Enter the correct movie name and try again.';
+      setTimeout(() => {
+        formError.innerText = '';
+      }, 3000);
       searchValue = '';
-      return
+
+      return;
     }
   }
 }
@@ -104,4 +107,4 @@ searchForm.addEventListener('submit', e => {
   searcher('');
 });
 
-export { totalSearchedPages, search, searcher };
+export { totalSearchedPages, search, searcher, input };
