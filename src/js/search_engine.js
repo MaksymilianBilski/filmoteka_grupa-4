@@ -60,12 +60,12 @@ const input = document.getElementById('form-input');
 let SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 let totalSearchedPages;
 let search;
-
+const formError = document.querySelector('.header-form-error');
 const searchForm = document.getElementById('search-form');
 
 async function searcher(page) {
   search = true;
-
+  formError.innerHTML = '';
   searchEnginePagination();
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
@@ -83,8 +83,15 @@ async function searcher(page) {
         return data.json();
       })
       .then(movies => {
+        if (movies.results.length === 0) {
+          error = formError.innerText =
+            'Search result not successful. Enter the correct movie name and try again.';
+        }
         start(movies);
         totalSearchedPages = movies.total_pages;
+      })
+      .catch(error => {
+        console.log(error);
       });
     searchValue = '';
     spinner.stop();
