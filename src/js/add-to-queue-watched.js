@@ -1,21 +1,24 @@
-const queueBtn = document.querySelector('.btn-queue');
-const watchedBtn = document.querySelector('.btn-watched');
-
 let queueArray = [];
 let watchedArray = [];
 
-// obrałem to w funkcje, bo przed otworzeniem modala, button jeszcze nie istnieje i wywala błąd
-function test() {
-  if (watchedBtn !== null) {
-    watchedBtn.addEventListener('click', () => {
-      let movieID = 101010;
-      watchedArray.push(movieID);
-      console.log('dupaduap');
-
-      localStorage.setItem('wached', JSON.stringify(watchedArray));
-    });
-  } else return;
-}
-test();
-
-function addToWatched() {}
+/*to queue*/
+const addToQueue = filmDetails => {
+  const queueBtn = document.querySelector('.modal__button-queue');
+  queueBtn.addEventListener('click', () => {
+    queueArray.push(filmDetails);
+    localStorage.setItem('qued', JSON.stringify(queueArray));
+    console.log('added to queue');
+    console.log(queueArray);
+  });
+};
+/*to watched*/
+const addToWatched = filmDetails => {
+  const watchedBtn = document.querySelector('.modal__button-watched');
+  watchedBtn.addEventListener('click', () => {
+    watchedArray.push(filmDetails);
+    localStorage.setItem('watched', JSON.stringify(watchedArray));
+    console.log('added to watched');
+    console.log(watchedArray);
+  });
+};
+export { queueArray, watchedArray, addToWatched, addToQueue };

@@ -1,6 +1,12 @@
 import { API_KEY, getMovie, fetchDetails } from './fetch-to-main';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
+import {
+  queueArray,
+  watchedArray,
+  addToWatched,
+  addToQueue,
+} from './add-to-queue-watched';
 //modal//
 
 const modal = document.querySelector('[data-modal]');
@@ -88,6 +94,10 @@ getMovie.addEventListener('click', event => {
       toggleModal();
 
       spinner.stop();
+
+      addToWatched(filmDetails);
+
+      addToQueue(filmDetails);
 
       const closeModalBtn = document.querySelector('[data-modal-close]');
 
