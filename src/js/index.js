@@ -6,3 +6,4 @@ import '../js/modal';
 import '../js/search_engine';
 import '../js/add-to-queue-watched';
 import '../js/library-markup';
+import '../js/queue-watched-storage';
