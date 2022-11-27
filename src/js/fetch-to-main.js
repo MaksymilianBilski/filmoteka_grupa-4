@@ -1,5 +1,6 @@
 import { async } from 'regenerator-runtime';
 import { Spinner } from 'spin.js';
+import Notiflix from 'notiflix';
 import { opts } from './asynchronic-loader-opts';
 const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
 let getMovie = document.getElementById(`movie-list`);
@@ -78,3 +79,21 @@ export {
   totalPages,
   timeDifference,
 };
+
+const letDetails = document.getElementById(`getDetails`)
+console.log(letDetails);
+letDetails.addEventListener(`click`, event=>{
+  Notiflix.Report.info(
+    'Created by',
+    'Maksymilian_Bilski: Team Leader Urszula_Molska:Scrum Master Dariusz_Kusnieruk:Developer Konrad_Wlodarczyk:Developer Jakub_Lisowski:Developer Maciej_Kosinski:Developer',
+    'Close',
+    function cb() {
+      // callback
+    },
+    {
+      width: '325px',
+      svgSize: '0px',
+    },
+  );
+})
+
