@@ -95,7 +95,6 @@ async function searcher(page) {
       setTimeout(() => {
         formError.innerText = '';
       }, 3000);
-      fetchMovies(API_KEY);
       search = false;
       searchValue = '';
 
