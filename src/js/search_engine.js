@@ -51,7 +51,7 @@ import {
   totalPages,
   timeDifference,
 } from './fetch-to-main';
-import { engine} from './pagination';
+import { searhEnginePagination } from './pagination';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 
@@ -65,7 +65,7 @@ const searchForm = document.getElementById('search-form');
 
 async function searcher(page) {
   search = true;
-  engine();
+  searhEnginePagination();
 
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
