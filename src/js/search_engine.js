@@ -102,9 +102,11 @@ async function searcher(page) {
   }
 }
 
-searchForm.addEventListener('submit', e => {
-  e.preventDefault();
-  searcher('');
-});
+if (searchForm !== null) {
+  searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+    searcher('');
+  });
+}
 
 export { totalSearchedPages, search, searcher, input };
