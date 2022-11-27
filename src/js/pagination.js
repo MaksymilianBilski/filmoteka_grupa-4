@@ -19,11 +19,12 @@ const svgR = document.querySelector('.svg-right');
 const svgL = document.querySelector('.svg-left');
 
 // making pagination for search engine
-function searhEnginePagination() {
+function searchEnginePagination() {
   setTimeout(() => {
     if (search === true) {
-      if (actualPage > 1) {
+      if (actualPage > totalSearchedPages) {
         page = 1;
+        pageBackward();
       }
       lastPage.textContent = totalSearchedPages;
       if (totalSearchedPages < 10) {
@@ -186,11 +187,11 @@ svgR.addEventListener('mouseover', e => {
 
 // add arrow functions on click
 svgL.addEventListener('click', () => {
-  searhEnginePagination();
+  searchEnginePagination();
   pageBackward();
 });
 svgR.addEventListener('click', () => {
-  searhEnginePagination();
+  searchEnginePagination();
   pageForward();
 });
 
@@ -455,7 +456,7 @@ function changeBtn(e) {
   else if (pagination.children.length > 0) {
     if (search === true) {
       searcher(`&page=${page}`);
-      searhEnginePaginatione();
+      searchEnginePagination();
       stylesAndListeners();
       return;
     }
@@ -496,4 +497,4 @@ pagination.addEventListener('click', changeBtn);
 //   console.log(sessionStorage.getItem('SCROLLPOS'));
 //   searhEnginePagination();
 // });
-export { searhEnginePagination, pageBackward, actualPage };
+export { searchEnginePagination, pageBackward, actualPage };
