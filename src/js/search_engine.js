@@ -56,7 +56,7 @@ import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 
 const API_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
-
+const input = document.getElementById('form-input');
 let SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 let totalSearchedPages;
 let search;
@@ -66,7 +66,7 @@ const searchForm = document.getElementById('search-form');
 async function searcher(page) {
   search = true;
   engine();
-  const input = document.getElementById('form-input');
+
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
     getMovie.innerHTML = '';
@@ -99,6 +99,8 @@ async function searcher(page) {
       fetchMovies(API_KEY);
       search = false;
       searchValue = '';
+
+      return;
     }
   }
 }
@@ -107,4 +109,4 @@ searchForm.addEventListener('submit', e => {
   searcher('');
 });
 
-export { totalSearchedPages, search, searcher };
+export { totalSearchedPages, search, searcher, input };

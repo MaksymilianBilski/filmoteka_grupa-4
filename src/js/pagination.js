@@ -1,22 +1,9 @@
 import { Notify } from 'notiflix';
 import * as module from './fetch-to-main';
-import { search, totalSearchedPages, searcher } from './search_engine';
+import { search, totalSearchedPages, searcher, input } from './search_engine';
 
 let page;
 let actualPage = 1;
-
-function engine() {
-  console.log(search);
-  if (search === true) {
-    setTimeout(() => {
-      lastPage.textContent = totalSearchedPages;
-    }, module.timeDifference);
-    if (lastPage.classList.contains('last-page')) {
-      lastPage.textContent = totalSearchedPages;
-    }
-  }
-}
-
 //values that will have setted amount further in functions
 let endPageDots;
 let lastPage;
@@ -31,9 +18,56 @@ const arrowRight = document.querySelector('.arrow-right');
 const svgR = document.querySelector('.svg-right');
 const svgL = document.querySelector('.svg-left');
 
+// making pagination for search engine
+function searhEnginePagination() {
+  setTimeout(() => {
+    if (search === true) {
+      if (actualPage > 1) {
+        page = 1;
+      }
+      lastPage.textContent = totalSearchedPages;
+      if (totalSearchedPages < 10) {
+        changePaginationView();
+        if (totalSearchedPages < 6) {
+          for (
+            let i = totalSearchedPages;
+            i <= pagination.children.length;
+            i++
+          ) {
+            if (pagination.children[i] === undefined) {
+              return;
+            }
+            pagination.children[i].style.display = 'none';
+            arrowLeft.style.display = 'none';
+            arrowRight.style.display = 'none';
+            console.log(pagination.children.length + ' ' + totalSearchedPages);
+          }
+        }
+      }
+    }
+    searchPaginationStyling();
+  }, module.timeDifference * 10);
+}
+
+// styling for search engine pagination
+function searchPaginationStyling() {
+  for (let i = pagination.children.length; i <= totalSearchedPages; i++) {
+    if (pagination.children.length < totalSearchedPages) {
+      stylesAndListeners();
+      arrowRight.style.display = 'block';
+      arrowLeft.style.display = 'block';
+      endPageDots.style.display = 'flex';
+      startPageDots.style.display = 'flex';
+    }
+  }
+}
+
 //pagination mobile view
 function changePaginationView() {
-  if (window.innerWidth <= 767) {
+  if (
+    window.innerWidth <= 767 ||
+    (search === true && input.value.length !== 0)
+  ) {
     startPageDots.style.display = 'none';
     lastPage.style.display = 'none';
     endPageDots.style.display = 'none';
@@ -60,6 +94,7 @@ function changePaginationView() {
           'none';
       }
     }
+    return;
   }
   if (window.innerWidth > 767) {
     startPageDots.style.display = 'flex';
@@ -151,9 +186,11 @@ svgR.addEventListener('mouseover', e => {
 
 // add arrow functions on click
 svgL.addEventListener('click', () => {
+  searhEnginePagination();
   pageBackward();
 });
 svgR.addEventListener('click', () => {
+  searhEnginePagination();
   pageForward();
 });
 
@@ -178,6 +215,7 @@ makeStartPagination();
 function stylesAndListeners() {
   for (let i = 0; i <= pagination.children.length - 1; i++) {
     // buttons styling
+    pagination.children[i].style.display = 'block';
     pagination.children[i].style.marginLeft = '2px';
     pagination.children[i].style.backgroundColor = 'transparent';
     pagination.children[i].style.border = 'none';
@@ -417,6 +455,7 @@ function changeBtn(e) {
   else if (pagination.children.length > 0) {
     if (search === true) {
       searcher(`&page=${page}`);
+      searhEnginePaginatione();
       stylesAndListeners();
       return;
     }
@@ -441,20 +480,20 @@ function changeBtn(e) {
 pagination.addEventListener('click', changeBtn);
 
 //testing functions
-function testBtn() {
-  paginationBox.insertAdjacentHTML(
-    'afterbegin',
-    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
-  );
-}
-testBtn();
-const tBtn = document.querySelector('.test');
-tBtn.addEventListener('click', () => {
-  Notify.info('current page = ' + `${actualPage}`);
-  Notify.info('total pages = ' + `${module.totalPages}`);
-  Notify.info('time difference = ' + `${module.timeDifference}`);
-  Notify.info('window width = ' + `${window.innerWidth}`);
-  console.log(sessionStorage.getItem('SCROLLPOS'));
-  engine();
-});
-export { engine };
+// function testBtn() {
+//   paginationBox.insertAdjacentHTML(
+//     'afterbegin',
+//     `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
+//   );
+// }
+// testBtn();
+// const tBtn = document.querySelector('.test');
+// tBtn.addEventListener('click', () => {
+//   Notify.info('current page = ' + `${actualPage}`);
+//   Notify.info('total pages = ' + `${module.totalPages}`);
+//   // Notify.info('time difference = ' + `${module.timeDifference}`);
+//   // Notify.info('window width = ' + `${window.innerWidth}`);
+//   console.log(sessionStorage.getItem('SCROLLPOS'));
+//   searhEnginePagination();
+// });
+export { searhEnginePagination, pageBackward, actualPage };
