@@ -17,6 +17,5 @@ function changeActiveWachedBtn() {
   watchedBtn.classList.add('btn-active');
 }
 
-
 watchedBtn.addEventListener('click', changeActiveWachedBtn());
 queueBtn.addEventListener('click', changeActiveQueueBtn());
