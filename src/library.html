@@ -6,7 +6,8 @@
     <title>Page title</title>
     <script type="module" src="./js/pagination.js"></script>
   </head>
-  <body>
+  <body onload="const pagination = document.querySelector('.pagination-box');
+  pagination.innerHTML ='';">
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <include src="./partials/library.html"></include>
     <include src="./partials/main.html"></include>

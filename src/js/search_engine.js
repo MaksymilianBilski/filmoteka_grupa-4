@@ -28,7 +28,6 @@ const searchForm = document.getElementById('search-form');
 async function searcher(page) {
   search = true;
   formError.innerHTML = '';
-  searchEnginePagination();
   const spinner = new Spinner(opts).spin(getMovie);
   if (getMovie.children.length > 0) {
     getMovie.innerHTML = '';
@@ -37,7 +36,7 @@ async function searcher(page) {
   if (searchValue === '') {
     fetchMovies(API_KEY);
     pagination.innerHTML = '';
-    startState();
+    startState(totalPages);
     stylesAndListeners();
     search = false;
   }
@@ -55,6 +54,7 @@ async function searcher(page) {
           }, 3000);
         }
         start(movies);
+        searchEnginePagination();
         totalSearchedPages = movies.total_pages;
       })
       .catch(error => {

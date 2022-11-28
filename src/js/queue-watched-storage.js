@@ -6,7 +6,6 @@ import {
   addToWatched,
   addToQueue,
 } from './add-to-queue-watched';
-import { pagination, paginationBox, totalSearchedPages } from './pagination';
 
 const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
@@ -16,6 +15,9 @@ let parsedQueued = JSON.parse(savedQueued);
 let savedWatched = localStorage.getItem('watched');
 let parsedWatched = JSON.parse(savedWatched);
 const getMovie = document.getElementById('movie-list');
+let totalPagesStorage;
+let queue;
+let watched;
 
 //Queue
 
@@ -69,8 +71,7 @@ if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
 function addMoviesFromLocalstorage(movies) {
   getMovie.innerHTML = '';
   for (const movie of movies) {
-    let totalPages = parsedQueued.length;
-    console.log(parsedQueued.length);
+    totalPagesStorage = (movies.length / 20).toFixed(0);
     let filmCategories = '';
 
     const tableOfCategories = movie.genres;
@@ -139,3 +140,4 @@ function addMoviesFromLocalstorage(movies) {
     })
     .catch(error => console.log(error));
 });*/
+export { totalPagesStorage };
