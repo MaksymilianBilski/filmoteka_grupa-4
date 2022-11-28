@@ -18,16 +18,25 @@ const getMovie = document.getElementById('movie-list');
 console.log(queueBtn);
 //Queue
 queueBtn.addEventListener('click', () => {
-  addMoviesFromLocalstorage(parsedQueued);
-  console.log('hurra');
-  console.log(parsedQueued);
+  if (parsedQueued !== null) {
+    addMoviesFromLocalstorage(parsedQueued);
+    console.log('hurra parsedQueued');
+    console.log(parsedQueued);
+  }
+  if (parsedQueued === null || undefined) {
+    getMovie.innerHTML = '';
+  }
 });
 
 //Watched
 watchedBtn.addEventListener('click', () => {
-  addMoviesFromLocalstorage(parsedWatched);
-  console.log('hurra');
-  console.log(parsedWatched);
+  if (parsedWatched === null || undefined) {
+    getMovie.innerHTML = '';
+  } else if (parsedWatched !== null || undefined) {
+    addMoviesFromLocalstorage(parsedWatched);
+    console.log('hurra parsedWatched');
+    console.log(parsedWatched);
+  }
 });
 
 function addMoviesFromLocalstorage(movies) {

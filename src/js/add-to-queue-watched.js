@@ -42,7 +42,7 @@ const addToWatched = filmDetails => {
 
   watchedBtn.addEventListener('click', () => {
     if (parsedWatched === null || undefined) {
-      queueArray.push(filmDetails);
+      watchedArray.push(filmDetails);
       localStorage.setItem('watched', JSON.stringify(watchedArray));
       console.log('added to watched');
     }
