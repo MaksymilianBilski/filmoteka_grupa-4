@@ -6,7 +6,7 @@ import {
   addToWatched,
   addToQueue,
 } from './add-to-queue-watched';
-import { pagination, paginationBox } from './pagination';
+import { pagination, paginationBox, totalPages } from './pagination';
 
 const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
@@ -20,29 +20,30 @@ const getMovie = document.getElementById('movie-list');
 //Queue
 
 if (queueBtn !== null) {
-queueBtn.addEventListener('click', () => {
-  if (parsedQueued !== null) {
-    addMoviesFromLocalstorage(parsedQueued);
-    console.log('hurra parsedQueued');
-    console.log(parsedQueued);
-  }
-  if (parsedQueued === null || undefined) {
-    getMovie.innerHTML = '';
-  }
-});}
+  queueBtn.addEventListener('click', () => {
+    if (parsedQueued !== null) {
+      addMoviesFromLocalstorage(parsedQueued);
+      console.log('hurra parsedQueued');
+      console.log(parsedQueued);
+    }
+    if (parsedQueued === null || undefined) {
+      getMovie.innerHTML = '';
+    }
+  });
+}
 
 //Watched
 if (watchedBtn !== null) {
-watchedBtn.addEventListener('click', () => {
-  if (parsedWatched === null || undefined) {
-    getMovie.innerHTML = '';
-  } else if (parsedWatched !== null || undefined) {
-    addMoviesFromLocalstorage(parsedWatched);
-    console.log('hurra parsedWatched');
-    console.log(parsedWatched);
-  }
-});}
-
+  watchedBtn.addEventListener('click', () => {
+    if (parsedWatched === null || undefined) {
+      getMovie.innerHTML = '';
+    } else if (parsedWatched !== null || undefined) {
+      addMoviesFromLocalstorage(parsedWatched);
+      console.log('hurra parsedWatched');
+      console.log(parsedWatched);
+    }
+  });
+}
 
 //buttons styling
 if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
@@ -65,7 +66,6 @@ if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
 function addMoviesFromLocalstorage(movies) {
   getMovie.innerHTML = '';
   for (const movie of movies) {
-    totalPages = movies.total_pages;
     let filmCategories = '';
 
     const tableOfCategories = movie.genres;
