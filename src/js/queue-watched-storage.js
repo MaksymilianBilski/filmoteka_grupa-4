@@ -23,6 +23,13 @@ queueBtn.addEventListener('click', () => {
   console.log(parsedQueued);
 });
 
+//Watched
+watchedBtn.addEventListener('click', () => {
+  addMoviesFromLocalstorage(parsedWatched);
+  console.log('hurra');
+  console.log(parsedWatched);
+});
+
 /*//modal dla queue
   getMovie
     .addEventListener('click', event => {
@@ -60,13 +67,6 @@ queueBtn.addEventListener('click', () => {
       });
     })
     .catch(error => console.log(error));
-});
-
-/*
-watchedBtn.addEventListener('click', () => {
-  addMoviesFromLocalstorage(parsedWatched);
-  console.log('hurra');
-  console.log(parsedWatched);
 });*/
 
 function addMoviesFromLocalstorage(movies) {
