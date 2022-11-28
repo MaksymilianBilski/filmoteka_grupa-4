@@ -510,4 +510,5 @@ export {
   startState,
   stylesAndListeners,
   pagination,
+  paginationBox,
 };

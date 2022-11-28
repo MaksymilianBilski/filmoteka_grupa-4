@@ -6,7 +6,9 @@ import {
   addToWatched,
   addToQueue,
 } from './add-to-queue-watched';
+import { pagination, paginationBox } from './pagination';
 
+const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
 const watchedBtn = document.getElementById('btn-watched');
 let savedQueued = localStorage.getItem('queued');
@@ -15,20 +17,42 @@ let savedWatched = localStorage.getItem('watched');
 let parsedWatched = JSON.parse(savedWatched);
 const getMovie = document.getElementById('movie-list');
 
-console.log(queueBtn);
 //Queue
-queueBtn.addEventListener('click', () => {
-  addMoviesFromLocalstorage(parsedQueued);
-  console.log('hurra');
-  console.log(parsedQueued);
-});
+if (queueBtn !== null) {
+  queueBtn.addEventListener('click', () => {
+    paginationBox.innerHTML = '';
+    addMoviesFromLocalstorage(parsedQueued);
+    console.log('hurra');
+    console.log(parsedQueued);
+  });
+}
 
 //Watched
-watchedBtn.addEventListener('click', () => {
-  addMoviesFromLocalstorage(parsedWatched);
-  console.log('hurra');
-  console.log(parsedWatched);
-});
+if (watchedBtn !== null) {
+  watchedBtn.addEventListener('click', () => {
+    addMoviesFromLocalstorage(parsedWatched);
+    console.log('hurra');
+    console.log(parsedWatched);
+  });
+}
+
+//buttons styling
+if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
+  libraryButtons[1].addEventListener('click', () => {
+    libraryButtons[1].classList.toggle('active');
+    libraryButtons[1].classList.toggle('btn-white');
+    libraryButtons[1].classList.toggle('btn-orange');
+    libraryButtons[0].classList.remove('btn-orange');
+  });
+
+  console.log(libraryButtons[0]);
+  libraryButtons[0].addEventListener('click', () => {
+    libraryButtons[0].classList.toggle('active');
+    libraryButtons[0].classList.toggle('btn-white');
+    libraryButtons[0].classList.toggle('btn-orange');
+    libraryButtons[1].classList.remove('btn-orange');
+  });
+}
 
 function addMoviesFromLocalstorage(movies) {
   getMovie.innerHTML = '';
