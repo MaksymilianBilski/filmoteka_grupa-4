@@ -30,6 +30,40 @@ watchedBtn.addEventListener('click', () => {
   console.log(parsedWatched);
 });
 
+function addMoviesFromLocalstorage(movies) {
+  getMovie.innerHTML = '';
+  for (const movie of movies) {
+    totalPages = movies.total_pages;
+    let filmCategories = '';
+
+    const tableOfCategories = movie.genres;
+    const categories = tableOfCategories.map(category => category.name);
+    filmCategories = categories.join(', ');
+    /*zmiana formatu daty*/
+    const date = new Date(movie.release_date);
+    const releaseDate = date.getFullYear();
+    //console.log(movie);
+    //console.log(typeof releaseDate);
+
+    getMovie.insertAdjacentHTML(
+      'afterbegin',
+      `<li data-modal-open data-film="${
+        movie.id
+      }"  style="list-style-type:none;">
+        <div class="movie-container">
+        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
+          movie.poster_path || movie.poster_path
+        }>
+
+        <p class="movie-title">${movie.name || movie.title}</p>
+        <div id="movie-info">
+        <p class="movie-categories">${filmCategories} | </p>
+        <p class="year-of-release">${releaseDate}</p>
+        </li>`
+    );
+  }
+}
+
 /*//modal dla queue
   getMovie
     .addEventListener('click', event => {
@@ -68,37 +102,3 @@ watchedBtn.addEventListener('click', () => {
     })
     .catch(error => console.log(error));
 });*/
-
-function addMoviesFromLocalstorage(movies) {
-  getMovie.innerHTML = '';
-  for (const movie of movies) {
-    totalPages = movies.total_pages;
-    let filmCategories = '';
-
-    const tableOfCategories = movie.genres;
-    const categories = tableOfCategories.map(category => category.name);
-    filmCategories = categories.join(', ');
-    /*zmiana formatu daty*/
-    const date = new Date(movie.release_date);
-    const releaseDate = date.getFullYear();
-    //console.log(movie);
-    //console.log(typeof releaseDate);
-
-    getMovie.insertAdjacentHTML(
-      'afterbegin',
-      `<li data-modal-open data-film="${
-        movie.id
-      }"  style="list-style-type:none;">
-        <div class="movie-container">
-        <img class="movie-image" src=https://image.tmdb.org/t/p/w500/${
-          movie.poster_path || movie.poster_path
-        }>
-
-        <p class="movie-title">${movie.name || movie.title}</p>
-        <div id="movie-info">
-        <p class="movie-categories">${filmCategories} | </p>
-        <p class="year-of-release">${releaseDate}</p>
-        </li>`
-    );
-  }
-}
