@@ -18,23 +18,31 @@ let parsedWatched = JSON.parse(savedWatched);
 const getMovie = document.getElementById('movie-list');
 
 //Queue
+
 if (queueBtn !== null) {
-  queueBtn.addEventListener('click', () => {
-    paginationBox.innerHTML = '';
+queueBtn.addEventListener('click', () => {
+  if (parsedQueued !== null) {
     addMoviesFromLocalstorage(parsedQueued);
-    console.log('hurra');
+    console.log('hurra parsedQueued');
     console.log(parsedQueued);
-  });
-}
+  }
+  if (parsedQueued === null || undefined) {
+    getMovie.innerHTML = '';
+  }
+});}
 
 //Watched
 if (watchedBtn !== null) {
-  watchedBtn.addEventListener('click', () => {
+watchedBtn.addEventListener('click', () => {
+  if (parsedWatched === null || undefined) {
+    getMovie.innerHTML = '';
+  } else if (parsedWatched !== null || undefined) {
     addMoviesFromLocalstorage(parsedWatched);
-    console.log('hurra');
+    console.log('hurra parsedWatched');
     console.log(parsedWatched);
-  });
-}
+  }
+});}
+
 
 //buttons styling
 if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
