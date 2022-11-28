@@ -22,7 +22,7 @@ const svgL = document.querySelector('.svg-left');
 function searchEnginePagination() {
   setTimeout(() => {
     if (search === true) {
-      // change the search phrase while actual page is more than 1
+      // if change the search phrase while actual page is more than 1
       if (
         Number(module.totalPages) > Number(pagination.children[6].textContent)
       ) {
