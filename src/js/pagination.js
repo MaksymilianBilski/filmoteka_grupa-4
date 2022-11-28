@@ -511,4 +511,5 @@ export {
   stylesAndListeners,
   pagination,
   paginationBox,
+  totalSearchedPages,
 };
