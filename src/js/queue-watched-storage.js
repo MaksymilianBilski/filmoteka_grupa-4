@@ -6,7 +6,9 @@ import {
   addToWatched,
   addToQueue,
 } from './add-to-queue-watched';
+import { pagination, paginationBox } from './pagination';
 
+const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
 const watchedBtn = document.getElementById('btn-watched');
 let savedQueued = localStorage.getItem('queued');
@@ -15,8 +17,9 @@ let savedWatched = localStorage.getItem('watched');
 let parsedWatched = JSON.parse(savedWatched);
 const getMovie = document.getElementById('movie-list');
 
-console.log(queueBtn);
 //Queue
+
+if (queueBtn !== null) {
 queueBtn.addEventListener('click', () => {
   if (parsedQueued !== null) {
     addMoviesFromLocalstorage(parsedQueued);
@@ -26,9 +29,10 @@ queueBtn.addEventListener('click', () => {
   if (parsedQueued === null || undefined) {
     getMovie.innerHTML = '';
   }
-});
+});}
 
 //Watched
+if (watchedBtn !== null) {
 watchedBtn.addEventListener('click', () => {
   if (parsedWatched === null || undefined) {
     getMovie.innerHTML = '';
@@ -37,7 +41,26 @@ watchedBtn.addEventListener('click', () => {
     console.log('hurra parsedWatched');
     console.log(parsedWatched);
   }
-});
+});}
+
+
+//buttons styling
+if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
+  libraryButtons[1].addEventListener('click', () => {
+    libraryButtons[1].classList.toggle('active');
+    libraryButtons[1].classList.toggle('btn-white');
+    libraryButtons[1].classList.toggle('btn-orange');
+    libraryButtons[0].classList.remove('btn-orange');
+  });
+
+  console.log(libraryButtons[0]);
+  libraryButtons[0].addEventListener('click', () => {
+    libraryButtons[0].classList.toggle('active');
+    libraryButtons[0].classList.toggle('btn-white');
+    libraryButtons[0].classList.toggle('btn-orange');
+    libraryButtons[1].classList.remove('btn-orange');
+  });
+}
 
 function addMoviesFromLocalstorage(movies) {
   getMovie.innerHTML = '';

@@ -22,6 +22,13 @@ const svgL = document.querySelector('.svg-left');
 function searchEnginePagination() {
   setTimeout(() => {
     if (search === true) {
+      // if change the search phrase while actual page is more than 1
+      if (
+        Number(module.totalPages) > Number(pagination.children[6].textContent)
+      ) {
+        pagination.children[6].textContent = module.totalPages;
+        pageBackward();
+      }
       if (actualPage > totalSearchedPages) {
         page = 1;
         pageBackward();
@@ -41,7 +48,6 @@ function searchEnginePagination() {
             pagination.children[i].style.display = 'none';
             arrowLeft.style.display = 'none';
             arrowRight.style.display = 'none';
-            console.log(pagination.children.length + ' ' + totalSearchedPages);
           }
         }
       }
@@ -480,21 +486,29 @@ function changeBtn(e) {
 
 pagination.addEventListener('click', changeBtn);
 
-//testing functions
-// function testBtn() {
-//   paginationBox.insertAdjacentHTML(
-//     'afterbegin',
-//     `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
-//   );
-// }
-// testBtn();
-// const tBtn = document.querySelector('.test');
-// tBtn.addEventListener('click', () => {
-//   Notify.info('current page = ' + `${actualPage}`);
-//   Notify.info('total pages = ' + `${module.totalPages}`);
-//   // Notify.info('time difference = ' + `${module.timeDifference}`);
-//   // Notify.info('window width = ' + `${window.innerWidth}`);
-//   console.log(sessionStorage.getItem('SCROLLPOS'));
-//   searhEnginePagination();
-// });
-export { searchEnginePagination, pageBackward, actualPage };
+// testing functions
+function testBtn() {
+  paginationBox.insertAdjacentHTML(
+    'afterbegin',
+    `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
+  );
+}
+testBtn();
+const tBtn = document.querySelector('.test');
+tBtn.addEventListener('click', () => {
+  Notify.info('current page = ' + `${actualPage}`);
+  Notify.info('total pages = ' + `${module.totalPages}`);
+  // Notify.info('time difference = ' + `${module.timeDifference}`);
+  // Notify.info('window width = ' + `${window.innerWidth}`);
+  console.log(search);
+  searchEnginePagination();
+});
+export {
+  searchEnginePagination,
+  pageBackward,
+  actualPage,
+  startState,
+  stylesAndListeners,
+  pagination,
+  paginationBox,
+};

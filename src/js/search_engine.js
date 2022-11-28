@@ -8,7 +8,12 @@ import {
   totalPages,
   timeDifference,
 } from './fetch-to-main';
-import { searchEnginePagination } from './pagination';
+import {
+  searchEnginePagination,
+  startState,
+  stylesAndListeners,
+  pagination,
+} from './pagination';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 
@@ -31,6 +36,9 @@ async function searcher(page) {
   let searchValue = input.value.toLowerCase();
   if (searchValue === '') {
     fetchMovies(API_KEY);
+    pagination.innerHTML = '';
+    startState();
+    stylesAndListeners();
     search = false;
   }
   if (searchValue && searchValue !== '') {
@@ -54,7 +62,6 @@ async function searcher(page) {
       });
     searchValue = '';
     spinner.stop();
-    searchValue = '';
     return;
   }
 }
