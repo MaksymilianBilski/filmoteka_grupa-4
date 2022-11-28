@@ -18,6 +18,7 @@ function toggleModal() {
 getMovie.addEventListener('click', event => {
   const spinner = new Spinner(opts).spin(getMovie);
   if (event.target.tagName !== 'IMG') {
+    spinner.stop();
     return;
   }
   const divOfImg = event.target.parentNode;
