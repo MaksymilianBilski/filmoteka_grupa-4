@@ -1,4 +1,4 @@
-import { API_KEY, getMovie, fetchDetails } from './fetch-to-main';
+//import { API_KEY, fetchDetails } from './fetch-to-main';
 import { Spinner } from 'spin.js';
 import { opts } from './asynchronic-loader-opts';
 import {
@@ -7,9 +7,14 @@ import {
   addToWatched,
   addToQueue,
 } from './add-to-queue-watched';
+
+const API_KEY = `209b988e1e5a3c54f84bfbe290fdf3e2`;
+
 //modal//
 
-const modal = document.querySelector('[data-modal]');
+const getMovie = document.getElementById('movie-list-library');
+
+let modal = document.querySelector('[data-modal]');
 
 function toggleModal() {
   modal.classList.toggle('is-hidden');
@@ -113,3 +118,14 @@ getMovie.addEventListener('click', event => {
     })
     .catch(error => console.log(error));
 });
+
+async function fetchDetails(filmId, API_KEY) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${filmId}?api_key=${API_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const filmDetails = await response.json();
+  return filmDetails;
+}

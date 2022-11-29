@@ -85,7 +85,7 @@ console.log(letDetails);
 letDetails.addEventListener(`click`, event=>{
   Notiflix.Report.info(
     'Created by',
-    'Maksymilian_Bilski: Team Leader Urszula_Molska:Scrum Master Dariusz_Kusnieruk:Developer Konrad_Wlodarczyk:Developer Jakub_Lisowski:Developer',
+    'Maksymilian_Bilski: Team Leader Urszula_Molska:Scrum Master Dariusz_Kusnieruk:Developer Konrad_Wlodarczyk:Developer',
     'Close',
     function cb() {
       // callback

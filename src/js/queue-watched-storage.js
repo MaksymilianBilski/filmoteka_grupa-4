@@ -1,12 +1,11 @@
-import { modalHTML, modal, toggleModal } from './modal';
+//import { modalHTML, modal, toggleModal } from './modal';
 import { Spinner } from 'spin.js';
-import {
-  queueArray,
-  watchedArray,
-  addToWatched,
-  addToQueue,
-} from './add-to-queue-watched';
-import { pagination, paginationBox } from './pagination';
+//import {
+// queueArray,
+// watchedArray,
+// addToWatched,
+//addToQueue,
+//} from './add-to-queue-watched';
 
 const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
@@ -15,57 +14,64 @@ let savedQueued = localStorage.getItem('queued');
 let parsedQueued = JSON.parse(savedQueued);
 let savedWatched = localStorage.getItem('watched');
 let parsedWatched = JSON.parse(savedWatched);
-const getMovie = document.getElementById('movie-list');
+const getMovie = document.getElementById('movie-list-library');
+let totalPagesStorage;
+let queue;
+let watched;
 
 //Queue
 
 if (queueBtn !== null) {
-queueBtn.addEventListener('click', () => {
-  if (parsedQueued !== null) {
-    addMoviesFromLocalstorage(parsedQueued);
-    console.log('hurra parsedQueued');
-    console.log(parsedQueued);
-  }
-  if (parsedQueued === null || undefined) {
-    getMovie.innerHTML = '';
-  }
-});}
+  queueBtn.addEventListener('click', () => {
+    if (parsedQueued !== null) {
+      addMoviesFromLocalstorage(parsedQueued);
+      console.log('hurra parsedQueued');
+      console.log(parsedQueued);
+    }
+    if (parsedQueued === null || undefined) {
+      getMovie.innerHTML = '';
+    }
+  });
+}
 
 //Watched
 if (watchedBtn !== null) {
-watchedBtn.addEventListener('click', () => {
-  if (parsedWatched === null || undefined) {
-    getMovie.innerHTML = '';
-  } else if (parsedWatched !== null || undefined) {
-    addMoviesFromLocalstorage(parsedWatched);
-    console.log('hurra parsedWatched');
-    console.log(parsedWatched);
-  }
-});}
-
+  watchedBtn.addEventListener('click', () => {
+    if (parsedWatched === null || undefined) {
+      getMovie.innerHTML = '';
+    } else if (parsedWatched !== null || undefined) {
+      addMoviesFromLocalstorage(parsedWatched);
+      console.log('hurra parsedWatched');
+      console.log(parsedWatched);
+    }
+  });
+}
 
 //buttons styling
 if (libraryButtons[1] !== undefined && libraryButtons[0] !== undefined) {
-  libraryButtons[1].addEventListener('click', () => {
-    libraryButtons[1].classList.toggle('active');
-    libraryButtons[1].classList.toggle('btn-white');
-    libraryButtons[1].classList.toggle('btn-orange');
-    libraryButtons[0].classList.remove('btn-orange');
+  libraryButtons[0].addEventListener('click', () => {
+    libraryButtons[0].classList.remove('btn-white');
+    libraryButtons[0].classList.add('btn-active');
+    libraryButtons[0].classList.add('btn-orange');
+    libraryButtons[1].classList.remove('btn-orange');
+    libraryButtons[1].classList.remove('btn-active');
+    libraryButtons[1].classList.add('btn-white');
   });
 
-  console.log(libraryButtons[0]);
-  libraryButtons[0].addEventListener('click', () => {
-    libraryButtons[0].classList.toggle('active');
-    libraryButtons[0].classList.toggle('btn-white');
-    libraryButtons[0].classList.toggle('btn-orange');
-    libraryButtons[1].classList.remove('btn-orange');
+  libraryButtons[1].addEventListener('click', () => {
+    libraryButtons[1].classList.remove('btn-white');
+    libraryButtons[1].classList.add('btn-active');
+    libraryButtons[1].classList.add('btn-orange');
+    libraryButtons[0].classList.remove('btn-orange');
+    libraryButtons[0].classList.remove('btn-active');
+    libraryButtons[0].classList.add('btn-white');
   });
 }
 
 function addMoviesFromLocalstorage(movies) {
   getMovie.innerHTML = '';
   for (const movie of movies) {
-    totalPages = movies.total_pages;
+    totalPagesStorage = (movies.length / 20).toFixed(0);
     let filmCategories = '';
 
     const tableOfCategories = movie.genres;
@@ -95,42 +101,3 @@ function addMoviesFromLocalstorage(movies) {
     );
   }
 }
-
-/*//modal dla queue
-  getMovie
-    .addEventListener('click', event => {
-      const spinner = new Spinner(opts).spin(getMovie);
-      if (event.target.tagName !== 'IMG') {
-        return;
-      }
-      const divOfImg = event.target.parentNode;
-      const liOfImg = divOfImg.parentNode;
-      const filmId = liOfImg.dataset.film;
-      const film = parsedQueued.find(film => film.id === filmId);
-
-      let openModalBtn = document.querySelector(`[data-film="${filmId}"]`);
-      console.log(openModalBtn);
-
-      modalHTML(film);
-      toggleModal();
-
-      spinner.stop();
-
-      addToWatched(filmDetails);
-
-      addToQueue(filmDetails);
-
-      /*closing modal 
-      const closeModalBtn = document.querySelector('[data-modal-close]');
-
-      closeModalBtn.addEventListener('click', () => {
-        modal.classList.add('is-hidden');
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          modal.classList.add('is-hidden');
-        }
-      });
-    })
-    .catch(error => console.log(error));
-});*/
