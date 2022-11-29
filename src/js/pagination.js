@@ -498,21 +498,6 @@ function changeBtn(e) {
 
 pagination.addEventListener('click', changeBtn);
 
-// // testing functions
-// function testBtn() {
-//   paginationBox.insertAdjacentHTML(
-//     'afterbegin',
-//     `<button class="test" style="color: red; background-color: yellow; cursor: pointer; border: 2px solid grey;">PAGE-INFO</button>`
-//   );
-// }
-// testBtn();
-// const tBtn = document.querySelector('.test');
-// tBtn.addEventListener('click', () => {
-//   // Notify.info('current page = ' + `${actualPage}`);
-//   // Notify.info('total pages = ' + `${module.totalPages}`);
-//   // Notify.info('window width = ' + `${window.innerWidth}`);
-//   searchEnginePagination();
-// });
 export {
   searchEnginePagination,
   pageBackward,
