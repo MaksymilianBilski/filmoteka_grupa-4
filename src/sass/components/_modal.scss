@@ -7,7 +7,6 @@
     width: 100%;
     background: #0003;
     opacity: 1;
-    margin-top:10%;
     transition: opacity $transitionEffect;
   }
   
@@ -18,6 +17,7 @@
   
   .modal {
     position: absolute;
+    margin-top:10%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
