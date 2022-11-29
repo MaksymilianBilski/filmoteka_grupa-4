@@ -1,11 +1,4 @@
-//import { modalHTML, modal, toggleModal } from './modal';
 import { Spinner } from 'spin.js';
-//import {
-// queueArray,
-// watchedArray,
-// addToWatched,
-//addToQueue,
-//} from './add-to-queue-watched';
 
 const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
@@ -25,8 +18,6 @@ if (queueBtn !== null) {
   queueBtn.addEventListener('click', () => {
     if (parsedQueued !== null) {
       addMoviesFromLocalstorage(parsedQueued);
-      console.log('hurra parsedQueued');
-      console.log(parsedQueued);
     }
     if (parsedQueued === null || undefined) {
       getMovie.innerHTML = '';
@@ -41,8 +32,7 @@ if (watchedBtn !== null) {
       getMovie.innerHTML = '';
     } else if (parsedWatched !== null || undefined) {
       addMoviesFromLocalstorage(parsedWatched);
-      console.log('hurra parsedWatched');
-      console.log(parsedWatched);
+
     }
   });
 }
@@ -80,9 +70,6 @@ function addMoviesFromLocalstorage(movies) {
     /*zmiana formatu daty*/
     const date = new Date(movie.release_date);
     const releaseDate = date.getFullYear();
-    //console.log(movie);
-    //console.log(typeof releaseDate);
-
     getMovie.insertAdjacentHTML(
       'afterbegin',
       `<li data-modal-open data-film="${

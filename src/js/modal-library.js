@@ -31,17 +31,17 @@ getMovie.addEventListener('click', event => {
   const filmId = liOfImg.dataset.film;
 
   let openModalBtn = document.querySelector(`[data-film="${filmId}"]`);
-  console.log(openModalBtn);
+
 
   fetchDetails(filmId, API_KEY)
     .then(filmDetails => {
-      console.log(filmDetails);
+
       let filmCategories = '';
       const popularity = filmDetails.popularity;
       const tableOfCategories = filmDetails.genres;
       const categories = tableOfCategories.map(category => category.name);
       filmCategories = categories.join(', ');
-      console.log(popularity);
+
       modal.innerHTML = '';
       let markup = `
     <div class="modal">

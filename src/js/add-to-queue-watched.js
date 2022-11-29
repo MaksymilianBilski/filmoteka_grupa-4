@@ -13,7 +13,6 @@ const addToQueue = filmDetails => {
     if (parsedQueued === null || undefined) {
       queueArray.push(filmDetails);
       localStorage.setItem('queued', JSON.stringify(queueArray));
-      console.log('added to queue');
     }
     if (parsedQueued !== null) {
       queueArray = parsedQueued;
@@ -22,15 +21,10 @@ const addToQueue = filmDetails => {
       } else {
         queueArray.push(filmDetails);
         localStorage.setItem('queued', JSON.stringify(queueArray));
-        console.log('added to queue');
-        //console.log(queueArray);
       }
     }
     savedQueued = localStorage.getItem('queued');
     parsedQueued = JSON.parse(savedQueued);
-    console.log('updated local storage');
-    console.log(parsedQueued);
-    //console.log(queueArray);
   });
 };
 
@@ -44,7 +38,6 @@ const addToWatched = filmDetails => {
     if (parsedWatched === null || undefined) {
       watchedArray.push(filmDetails);
       localStorage.setItem('watched', JSON.stringify(watchedArray));
-      console.log('added to watched');
     }
     if (parsedWatched !== null) {
       watchedArray = parsedWatched;
@@ -53,15 +46,10 @@ const addToWatched = filmDetails => {
       } else {
         watchedArray.push(filmDetails);
         localStorage.setItem('watched', JSON.stringify(watchedArray));
-        console.log('added to watched');
-        //console.log(watchedArray);
       }
     }
     savedWatched = localStorage.getItem('watched');
     parsedWatched = JSON.parse(savedWatched);
-    console.log('updated local storage');
-    console.log(parsedWatched);
-    //console.log(watchedArray);
   });
 };
 

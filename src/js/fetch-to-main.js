@@ -38,8 +38,7 @@ function start(movies) {
       /*zmiana formatu daty*/
       const date = new Date(filmDetails.release_date);
       const releaseDate = date.getFullYear();
-      // console.log(filmDetails);
-      // console.log(typeof releaseDate);
+
       getMovie.insertAdjacentHTML(
         'afterbegin',
         `<li data-film="${filmDetails.id}" style="list-style-type:none;">
@@ -81,7 +80,7 @@ export {
 };
 
 const letDetails = document.getElementById(`getDetails`)
-console.log(letDetails);
+
 letDetails.addEventListener(`click`, event=>{
   Notiflix.Report.info(
     'Created by',

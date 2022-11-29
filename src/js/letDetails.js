@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
 
 const letDetails = document.getElementById(`getDetails`);
-console.log(letDetails);
+
 letDetails.addEventListener(`click`, event => {
   Notiflix.Report.info(
     'Created by',
