@@ -193,6 +193,7 @@
     }
   }
   &__button {
+    cursor: pointer;
     position: absolute;
     padding: 0;
     color: var(--text-color-1);
