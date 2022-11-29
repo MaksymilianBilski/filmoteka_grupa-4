@@ -25,7 +25,9 @@
   margin-bottom: 31px;
   flex-direction: row;
 }
-
+.movie-container{
+  cursor: pointer;
+}
 .movie-box {
   display: grid;
   justify-content: center;
