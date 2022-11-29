@@ -27,6 +27,11 @@
 }
 .movie-container{
   cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+.movie-container:hover{
+  transform: scale(1.1);
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 .movie-box {
   display: grid;
