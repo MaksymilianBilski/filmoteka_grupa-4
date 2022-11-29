@@ -4,16 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
-    <script type="module" src="./js/pagination.js"></script>
   </head>
-  <body onload="const pagination = document.querySelector('.pagination-box');
-  pagination.innerHTML ='';">
+  <body
+    onload="const pagination = document.querySelector('.pagination-box');
+  pagination.innerHTML ='';"
+  >
+    >
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <include src="./partials/library.html"></include>
-    <include src="./partials/main.html"></include>
+    <include src="./partials/main-library.html"></include>
     <include src="./partials/footer.html"></include>
     <include src="./partials/modal.html"></include>
-
-    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/index-library.js"></script>
   </body>
 </html>

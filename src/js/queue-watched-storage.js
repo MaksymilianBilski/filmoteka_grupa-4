@@ -1,11 +1,11 @@
-import { modalHTML, modal, toggleModal } from './modal';
+//import { modalHTML, modal, toggleModal } from './modal';
 import { Spinner } from 'spin.js';
-import {
-  queueArray,
-  watchedArray,
-  addToWatched,
-  addToQueue,
-} from './add-to-queue-watched';
+//import {
+// queueArray,
+// watchedArray,
+// addToWatched,
+//addToQueue,
+//} from './add-to-queue-watched';
 
 const libraryButtons = document.querySelectorAll('.btn');
 const queueBtn = document.getElementById('btn-queue');
@@ -14,7 +14,7 @@ let savedQueued = localStorage.getItem('queued');
 let parsedQueued = JSON.parse(savedQueued);
 let savedWatched = localStorage.getItem('watched');
 let parsedWatched = JSON.parse(savedWatched);
-const getMovie = document.getElementById('movie-list');
+const getMovie = document.getElementById('movie-list-library');
 let totalPagesStorage;
 let queue;
 let watched;
@@ -101,43 +101,3 @@ function addMoviesFromLocalstorage(movies) {
     );
   }
 }
-
-/*//modal dla queue
-  getMovie
-    .addEventListener('click', event => {
-      const spinner = new Spinner(opts).spin(getMovie);
-      if (event.target.tagName !== 'IMG') {
-        return;
-      }
-      const divOfImg = event.target.parentNode;
-      const liOfImg = divOfImg.parentNode;
-      const filmId = liOfImg.dataset.film;
-      const film = parsedQueued.find(film => film.id === filmId);
-
-      let openModalBtn = document.querySelector(`[data-film="${filmId}"]`);
-      console.log(openModalBtn);
-
-      modalHTML(film);
-      toggleModal();
-
-      spinner.stop();
-
-      addToWatched(filmDetails);
-
-      addToQueue(filmDetails);
-
-      /*closing modal 
-      const closeModalBtn = document.querySelector('[data-modal-close]');
-
-      closeModalBtn.addEventListener('click', () => {
-        modal.classList.add('is-hidden');
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          modal.classList.add('is-hidden');
-        }
-      });
-    })
-    .catch(error => console.log(error));
-});*/
-export { totalPagesStorage };
