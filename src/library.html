@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
-  </head>
-  <body
-    onload="const pagination = document.querySelector('.pagination-box');
-  pagination.innerHTML ='';"
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movies Library</title>
+  <link rel="icon" type="images/x-icon" href="images/film-reel1.webp" />
+</head>
+
+<body onload="const pagination = document.querySelector('.pagination-box');
+  pagination.innerHTML ='';">
   >
-    >
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/library.html"></include>
-    <include src="./partials/main-library.html"></include>
-    <include src="./partials/footer.html"></include>
-    <include src="./partials/modal.html"></include>
-    <script type="module" src="./js/index-library.js"></script>
-  </body>
+  <!-- ❗️❗️❗️ Add partials like so for every page -->
+  <include src="./partials/library.html"></include>
+  <include src="./partials/main-library.html"></include>
+  <include src="./partials/footer.html"></include>
+  <include src="./partials/modal.html"></include>
+  <script type="module" src="./js/index-library.js"></script>
+</body>
+
 </html>
